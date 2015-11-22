@@ -1,0 +1,127 @@
+<DOCTYPE html>
+<html lang="en">
+	<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<link rel="shortcut icon" type="image/x-icon" href="images/icono.ico" />
+			<link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+			<!-- Latest compiled and minified CSS -->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+			<!-- Optional theme -->
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+			<!-- Latest compiled and minified JavaScript -->
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+			<link rel="stylesheet" type="text/css" href="style.css"></link>
+			<title>Spurask</title>
+	</head>
+	<body>
+		<div id="container" class="container">
+			<div id="header" class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<ul id="menu">
+					<li>
+						<a class="home" href="index.html"><img src="images/home.png" alt="logo" height="25" width="25"></a>
+					</li>
+					  <li>
+					  	<input type="search" id="busqueda" size="30" placeholder="buscar">
+					  	<button type="submit" id="buttonBusqueda">buscar
+					  	</button>
+					  </li>
+					  <li class="option"><a href="preguntar.html">Preguntar</a></li>
+					  <li class="option"><a href="perfil.html">Perfil</a></li>
+					  <li class="option"><a href="logout.html">Salir</a></li>
+					</ul> 
+				</div>	
+				<div id="logo" class="col-xs-12 col-sm-12 col-md-8">
+					<img class="imgLogo" src="images/letras_sombreado.png" alt="logo" height="59" width="380">
+				</div> 
+			</div>
+			<div class="row">
+				<div id="main" class="col-xs-12 col-sm-12 col-md-8">
+					
+					<div class="preguntas">
+						<div class="question row">
+							<div class="usuario col-xs-12 col-sm-12 col-md-12">
+								<a href="perfil.html"><h1><img class="perfilP" src="images/perfil.png">mrGatuna</h1></a>
+
+								<h2>Los gatos dominaran el mundo?</h2>
+							</div>
+							<div class="textoR col-xs-12 col-sm-12 col-md-12">
+								<h2>Los gatos tienen una mirada misteriosa y creo que traman algo.</h2>
+								<h4>30/10/2015</h4>
+							</div>
+						</div>
+						
+					</div>
+					<div class="comentar" >
+							<textarea name="coment" rows="7" cols="40">Escribe tu respuesta</textarea>
+							<button type="submit" id="buttonComent">responder</button>
+					</div>
+					
+
+					<div class="comentarios row">
+						<div class="comentario col-xs-8 col-sm-8 col-md-8">
+							<h4>gatito83</h4>
+							<h2>Mi gata misi habla un lenguaje en clave con otros gatos</h2>
+						</div>
+						<div class="numComentario col-xs-4 col-sm-4 col-md-4">
+							<button type="submit" class="votar" >25 <img src="images/like.png"/></button>
+							<button type="submit" class="votar" >3 <img src="images/nolike.png"/></button>
+						</div>
+					</div>
+					<div class="comentarios row">
+						<div class="comentario col-xs-8 col-sm-8 col-md-8">
+							<h4>espectro25</h4>
+							<h2>Solo hay que ver lo agiles que son y como nos engañan. Se estan entrenando para hacerse con el poder.</h2>
+						</div>
+						<div class="numComentario col-xs-4 col-sm-4 col-md-4">
+							<button type="submit" class="votar" >10 <img src="images/like.png"/></button>
+							<button type="submit" class="votar" >2 <img src="images/nolike.png"/></button>
+						</div>
+					</div>
+					<div class="comentarios row">
+						<div class="comentario col-xs-8 col-sm-8 col-md-8">
+							<h4>jopetas22</h4>
+							<h2>Estas loco y eres un paranoias</h2>
+						</div>
+						<div class="numComentario col-xs-4 col-sm-4 col-md-4">
+							<button type="submit" class="votar" >3 <img src="images/like.png"/></button>
+							<button type="submit" class="votar" >2 <img src="images/nolike.png"/></button>
+						</div>
+					</div>
+
+					<div>
+						<ul class="masP">
+
+						  <li class="optionPeq"><a href="pregunta.html">Anterior</a></li>
+						  <li class="option_sele"><a href="pregunta.html">1</a></li>
+						  <li class="option"><a href="pregunta.html">2</a></li>
+						  <li class="option"><a href="pregunta.html">3</a></li>
+						  <li class="option"><a href="pregunta.html">...</a></li>
+						  <li class="optionPeq"><a href="pregunta.html">Siguiente</a></li>
+						  <li class="option"><a href="pregunta.html">Ultimo</a></li>
+						</ul> 
+					</div>	
+				</div>
+				<div id="news" class="col-xs-12 col-sm-12 col-md-4">
+					<ul class="colMas">						
+						<li><h2>Preguntas mas votadas</h2></li>
+						<li class="preg"><a href="pregunta.html">Soy una persona?</a></li>
+						<li class="preg"><a href="pregunta.html">Cual es el sentido de la vida?</a></li>
+						<li class="preg"><a href="pregunta.html">Que son los caminantes blancos?</a></li>
+						<li class="preg"><a href="pregunta.html">A que esperas?</a></li>
+						<li class="preg"><a href="pregunta.html">Quien vive ahi?</a></li>
+						
+					</ul>
+					<ul class="colMas">
+						<li><h2>Usuarios que mas votan</h2></li>
+						<li class="preg"><a href="perfil.html">federico</a></li>
+						<li class="preg"><a href="perfil.html">manuela</a></li>
+						<li class="preg"><a href="perfil.html">mrRareza</a></li>
+						<li class="preg"><a href="perfil.html">vampiro57</a></li>
+						<li class="preg"><a href="perfil.html">facundo</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

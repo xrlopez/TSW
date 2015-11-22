@@ -1,41 +1,69 @@
 <?php
-/**
- * Requests collector.
- *
- *  This file collects requests if:
- *	- no mod_rewrite is available or .htaccess files are not supported
- *  - requires App.baseUrl to be uncommented in app/Config/core.php
- *	- app/webroot is not set as a document root.
- *
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         CakePHP(tm) v 0.2.9
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
+// file: index.php
 
 /**
- *  Get CakePHP's root directory
+ * Default controller if any controller is passed in the URL
  */
-define('APP_DIR', 'app');
-define('DS', DIRECTORY_SEPARATOR);
-define('ROOT', dirname(__FILE__));
-define('WEBROOT_DIR', 'webroot');
-define('WWW_ROOT', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS);
 
+define("DEFAULT_CONTROLLER", "preguntas");
 /**
- * This only needs to be changed if the "cake" directory is located
- * outside of the distributed structure.
- * Full path to the directory containing "cake". Do not add trailing directory separator
+ * Default action if any action is passed in the URL
  */
-if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-	define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
+define("DEFAULT_ACTION", "index");
+
+function run() {
+  // invoke action!
+  try {
+    if (!isset($_GET["controller"])) {
+      $_GET["controller"] = DEFAULT_CONTROLLER; 
+    }
+    
+    if (!isset($_GET["action"])) {
+      $_GET["action"] = DEFAULT_ACTION;
+    }
+    
+    // Here is where the "magic" occurs.
+    // URLs like: index.php?controller=posts&action=add
+    // will provoke a call to: new PostsController()->add()
+    
+    // Instantiate the corresponding controller
+    $controller = loadController($_GET["controller"]);
+    
+    // Call the corresponding action
+    $actionName = $_GET["action"];
+    $controller->$actionName(); 
+  } catch(Exception $ex) {
+    //uniform treatment of exceptions
+    die("An exception occured!!!!!".$ex->getMessage());   
+  }
 }
-
-require APP_DIR . DS . WEBROOT_DIR . DS . 'index.php';
+ 
+/**
+ * Load the required controller file and create the controller instance
+ * 
+ * @param string $controllerName The controller name found in the URL
+ * @return Object A Controller instance
+ */
+function loadController($controllerName) {  
+  $controllerClassName = getControllerClassName($controllerName);
+  
+  require_once(__DIR__."/controller/".$controllerClassName.".php");  
+  return new $controllerClassName();
+}
+ 
+/**
+ * Obtain the class name for a controller name in the URL
+ * 
+ * For example $controllerName = "users" will return "UsersController"
+ * 
+ * @param $controllerName The name of the controller found in the URL
+ * @return string The controller class name
+ */
+function getControllerClassName($controllerName) {
+  return strToUpper(substr($controllerName, 0, 1)).substr($controllerName, 1)."Controller";
+}
+ 
+//run!
+run();
+ 
+?>
