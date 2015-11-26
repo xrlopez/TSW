@@ -57,7 +57,7 @@ class UserMapper {
    * @return boolean true the username/passwrod exists, false otherwise.
    */
   public function isValidUser($username, $passwd) {
-    $stmt = $this->db->prepare("SELECT count(idUsuario) FROM usuarios where idUsuario=? and contraseña=?");
+    $stmt = $this->db->prepare("SELECT count(idUsuario) FROM usuarios where idUsuario=? and password=?");
     $stmt->execute(array($username, $passwd));
     
     if ($stmt->fetchColumn() > 0) {

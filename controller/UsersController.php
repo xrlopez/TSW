@@ -40,16 +40,18 @@ class UsersController extends BaseController {
       //process login form    
       if ($this->userMapper->isValidUser($_POST["username"],$_POST["passwd"])) {
 	       $_SESSION["currentuser"]=$_POST["username"];
+		   $this->view->redirect("preguntas", "index");
 	
       }else{
-	$errors = array();
-	$errors["general"] = "<span id=\"error\">El usuario o la contraseña no es correcta</span>";
-	$this->view->setVariable("errors", $errors);
+		$errors = array();
+		$errors["general"] = "<span id=\"error\">El usuario o la contraseña no es correcta</span>";
+		$this->view->setVariable("errors", $errors);
       }
-    }       
+    }
     
-    // render the view (/view/users/login.php)
-    $this->view->render("users", "login");    
+	// render the view (/view/users/login.php)
+	$this->view->render("users", "login");   
+		
   }
 
    
