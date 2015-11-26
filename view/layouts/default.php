@@ -27,10 +27,14 @@
   		<div id="header" class="row">
 			<div class="col-xs-12 col-sm-12 col-md-12">
 				<ul id="menu">
+					<li>
+						<a class="home" href="index.php"><img src="images/home.png" alt="logo" height="25" width="25"></a>
+					</li>
 				  <li >
-				  	<input type="search" id="busqueda" size="30" placeholder="buscar">
-				  	<button type="submit" id="buttonBusqueda">buscar
-				  	</button>
+              		<form id="form-aceptar" action="index.php?controller=users&amp;action=buscarInfo" method="post" >
+					  	<input type="search" id="busqueda" name="busqueda" size="30" placeholder="buscar">
+					  	<button type="submit" name="submit" id="buttonBusqueda">buscar</button>
+                    </form>
 				  </li>
 				  <li class="option"><a href="preguntar.html">Preguntar</a></li>
 				  <li class="option"><a href="index.php?controller=users&amp;action=login">Iniciar sesion</a></li>

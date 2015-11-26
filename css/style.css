@@ -34,6 +34,19 @@ ul#menu .home:hover{
 	background-color: #748BA7;
 }
 
+.informacion{
+	padding: 15px;
+	border-radius: 4px;
+	color: black;
+	margin-bottom: 20px;
+	background-color: #748BA7;
+	clear: both;
+	width: inherit;
+}
+.informacion a{
+	color: white;
+}
+
 
 ul#menu li a{
     padding: 10px 20px;

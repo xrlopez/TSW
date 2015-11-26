@@ -2,6 +2,8 @@
 // file: model/UserMapper.php
 
 require_once(__DIR__."/../core/PDOConnection.php");
+require_once(__DIR__."/../model/Pregunta.php");
+
 
 /**
  * Class UserMapper
@@ -63,6 +65,19 @@ class UserMapper {
     if ($stmt->fetchColumn() > 0) {
       return true;        
     }
+  }
+
+  public function buscarInfo($busqueda){
+    
+    $stmt = $this->db->prepare("SELECT * FROM preguntas WHERE (titulo LIKE ? OR descripcion LIKE ?)");
+    $stmt->execute(array("%$busqueda%","%$busqueda%"));  
+    $pregs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+   
+    $bus = array();
+    foreach ($pregs as $preg) {
+      array_push($bus, new Pregunta($preg["idPregunta"], $preg["titulo"], $preg["descripcion"], $preg["fecha"], $preg["idUsuario"]));
+    }    
+    return $bus;
   }
    
 }
