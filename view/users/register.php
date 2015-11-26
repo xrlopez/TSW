@@ -7,14 +7,17 @@
  $user = $view->getVariable("user");
  $view->setVariable("title", "Register");
 ?>
-<div class="row iniciarS">
-	<div class="divLoginRegistrar col-xs-12 col-sm-12 col-md-12">
-		<h2>Registrarse</h2>
-		<form class="formLogin col-md-12" name="login" method="post">
-			<div class="divFormulario">
-				<a href="index.php?controller=users&amp;action=registerEstablecimiento">Registrarme como establecimiento</a>
-				<a href="index.php?controller=users&amp;action=registerPopular">Registrarme como jurado</a>
-			</div>
-		</form>
-	</div>
+<div class="registrar row">
+	<form class="formLogin col-md-12" name="login" method="post" action="#">
+		<div class="registrarse">
+			<h2>Usuario</h2><input type="text" id="usuario"/>
+			<h2>Nombre</h2><input type="text" id="usuario"/>
+			<h2>Correo</h2><input type="text" id="usuario"/>
+			<h2>Contrase&#241;a</h2><input type="password" id="contraseña"/>
+			<h2>Confirmar contrase&#241;a</h2><input type="password" id="contraseña"/>
+		</div>
+		<div class="botones">
+			<button type="submit" id="login">Registrarse</button>
+		</div>
+	</form>
 </div>

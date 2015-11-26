@@ -33,7 +33,7 @@
 				  	</button>
 				  </li>
 				  <li class="option"><a href="preguntar.html">Preguntar</a></li>
-				  <li class="option"><a href="login.html">Iniciar sesion</a></li>
+				  <li class="option"><a href="index.php?controller=users&amp;action=login">Iniciar sesion</a></li>
 				</ul> 
 			</div>	
 			<div id="logo" class="col-xs-12 col-sm-12 col-md-8">
