@@ -43,9 +43,9 @@ class UsersController extends BaseController {
 	       $this->view->redirect("preguntas", "index");
          
       }else{
-	$errors = array();
-	$errors["general"] = "<span id=\"error\">El usuario o la contraseña no es correcta</span>";
-	$this->view->setVariable("errors", $errors);
+      	$errors = array();
+      	$errors["general"] = "<span id=\"error\">El usuario o la contraseña no es correcta</span>";
+      	$this->view->setVariable("errors", $errors);
       }
     }       
     

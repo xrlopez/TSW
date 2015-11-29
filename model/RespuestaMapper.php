@@ -10,10 +10,30 @@ class RespuestaMapper {
   public function __construct() {
     $this->db = PDOConnection::getInstance();
   }
+
+  public function findById($idRespuesta){
+    $stmt = $this->db->prepare("SELECT * FROM respuestas WHERE respuestas.idRespuesta=? ");
+    $stmt->execute(array($idRespuesta));
+    $resp_db = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if($resp_db != null) {
+        return new Respuesta(
+    $resp_db["idRespuesta"],
+    $resp_db["idPregunta"],
+    $resp_db["descripcion"],
+    $resp_db["votosPositivos"],
+    $resp_db["votosNegativos"],
+    $resp_db["idUsuario"]
+    );
+    } else {
+        return NULL;
+      }   
+   
+  }
  
   public function save($respuesta) {
-    $stmt = $this->db->prepare("INSERT INTO respuestas values (?,?,?,?,?,?");
-    $stmt->execute(array($respuesta->getId(), $respuesta->getPregunta(), $respuesta->getDescripcion(), $respuesta->getPositivos(), $respuesta->getNegativos(), $respuesta->getUsuario()));
+    $stmt = $this->db->prepare("INSERT INTO respuestas (idPregunta,descripcion,votosPositivos,votosNegativos,idUsuario)values (?,?,?,?,?)");
+    $stmt->execute(array($respuesta->getPregunta(), $respuesta->getDescripcion(), 0, 0, $respuesta->getUsuario()));
   }
 
   public function findAllByPregunta($pregunta){  
@@ -28,6 +48,16 @@ class RespuestaMapper {
     }   
   
     return $resps;
+  }
+
+  public function votarPositivo($respuesta){
+    $stmt = $this->db->prepare("UPDATE respuestas set votosPositivos=(votosPositivos + 1) where idRespuesta=?");
+    $stmt->execute(array($respuesta->getId())); 
+  }
+
+  public function votarNegativo($respuesta){
+    $stmt = $this->db->prepare("UPDATE respuestas set votosNegativos=(votosNegativos + 1) where idRespuesta=?");
+    $stmt->execute(array($respuesta->getId())); 
   }
    
 }

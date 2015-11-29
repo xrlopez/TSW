@@ -52,14 +52,39 @@ class PreguntasController extends BaseController {
   }
 
   public function pregunta(){
-    $idpre = $_GET["id"];
-    $pregunta = $this->preguntaMapper->findById($idpre);
-    $respuestas = $this->respuestaMapper->findAllByPregunta($idpre);
-    $this->view->setVariable("respuestas",$respuestas);
-    $this->view->setVariable("pregunta", $pregunta); 
-    $this->view->render("preguntas", "pregunta");
-
+    if(isset($_GET["id"])){
+      $idpre = $_GET["id"];
+      $pregunta = $this->preguntaMapper->findById($idpre);
+      $respuestas = $this->respuestaMapper->findAllByPregunta($idpre);
+      $this->view->setVariable("respuestas",$respuestas);
+      $this->view->setVariable("pregunta", $pregunta);
+      $this->view->render("preguntas", "pregunta");
+    }
   }
+
+
+
+  public function preguntar(){
+    if(isset($_SESSION["currentuser"])){
+      if(isset($_POST["submit"])){
+        $pregunta = new Pregunta();
+        $pregunta->setTitulo($_POST["pregunta"]);
+        $pregunta->setDescripcion($_POST["descripcion"]);
+        $time = time();
+        $pregunta->setFecha(date("Y-m-d", $time));
+        $pregunta->setUsuario($_POST["usuario"]);
+        $this->preguntaMapper->save($pregunta);
+        $this->view->redirect("preguntas", "index");
+      }else{
+          $this->view->render("preguntas", "preguntar");
+      }
+    }else{
+      $this->view->setFlash("Para preguntar tienes que iniciar sesion");
+      $this->view->render("users", "login");    
+    }
+  }
+
+
 
   
 }

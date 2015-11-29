@@ -36,7 +36,7 @@
 					  	<button type="submit" name="submit" id="buttonBusqueda">buscar</button>
                     </form>
 				  </li>
-				  <li class="option"><a href="preguntar.html">Preguntar</a></li>
+				  <li class="option"><a href="index.php?controller=preguntas&amp;action=preguntar">Preguntar</a></li>
 				  <li class="option"><a href="index.php?controller=users&amp;action=login">Iniciar sesion</a></li>
 				</ul> 
 			</div>	

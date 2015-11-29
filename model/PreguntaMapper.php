@@ -12,8 +12,8 @@ class PreguntaMapper {
   }
  
   public function save($pregunta) {
-    $stmt = $this->db->prepare("INSERT INTO preguntas values (?,?,?,?,?");
-    $stmt->execute(array($pregunta->getId(), $pregunta->getTitulo(), $pregunta->getDescripcion(), $pregunta->getFecha(), $pregunta->getUsuario()));
+    $stmt = $this->db->prepare("INSERT INTO preguntas (titulo,descripcion,fecha,idUsuario) values (?,?,?,?)");
+    $stmt->execute(array($pregunta->getTitulo(), $pregunta->getDescripcion(), $pregunta->getFecha(), $pregunta->getUsuario()));
   }
 
   public function findAll(){  
