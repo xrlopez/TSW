@@ -55,6 +55,43 @@ class UsersController extends BaseController {
 
    
    public function register() { 
+    //$this->view->render("users", "register");
+	$user = new User();
+
+	if (isset($_POST["usuario"])){ 
+      $user->setUsername($_POST["usuario"]);
+      $user->setName($_POST["nombre"]);
+	  $user->setSurname($_POST["apellidos"]);
+      $user->setEmail($_POST["correo"]);
+
+      if ($_POST["pass"]==$_POST["repass"]) {
+        $user->setPassword($_POST["pass"]);
+      }
+      else{
+        $errors["pass"] = "Las contraseñas tienen que ser iguales";
+        $this->view->setVariable("errors", $errors);
+        $this->view->render("users", "register"); 
+        return false;
+      }
+    
+      try{
+	      $user->checkIsValidForRegister();    
+		  
+      	if (!$this->userMapper->usernameExists($_POST["usuario"])){
+        	  $this->userMapper->save($user);
+	          $this->view->setFlash("Usuario ".$user->getUsername()." registrado.");
+	          $this->view->redirect("users", "login");
+  } else {
+	  $errors = array();
+	  $errors["usuario"] = "El usuario ya existe";
+	  $this->view->setVariable("errors", $errors);
+	}
+      }catch(ValidationException $ex) {
+      	$errors = $ex->getErrors();
+      	$this->view->setVariable("errors", $errors);
+      }
+    }
+    
     $this->view->render("users", "register");
     
   }
@@ -86,7 +123,7 @@ class UsersController extends BaseController {
     // perform a redirection. More or less: 
     // header("Location: index.php?controller=users&action=login")
     // die();
-    $this->view->redirect("concurso", "index");
+    $this->view->redirect("preguntas", "index");
    
   }
   

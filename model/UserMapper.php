@@ -32,8 +32,8 @@ class UserMapper {
    * @return void
    */      
   public function save($user) {
-    $stmt = $this->db->prepare("INSERT INTO usuarios values (?,?,?,?)");
-    $stmt->execute(array($user->getid(), $user->getNombre(), $user->getCorreo(), $user->getPassword()));
+    $stmt = $this->db->prepare("INSERT INTO usuarios values (?,?,?,?,?)");
+    $stmt->execute(array($user->getUsername(), $user->getName(), $user->getSurname(), $user->getEmail(), $user->getPassword()));
   }
   
   /**

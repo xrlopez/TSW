@@ -10,6 +10,7 @@ use spurask;
 CREATE TABLE usuarios(
 	idUsuario VARCHAR(15) PRIMARY KEY NOT NULL,
 	nombre VARCHAR(100) NOT NULL,
+	apellidos VARCHAR(100) NOT NULL,
 	correo VARCHAR(15) NOT NULL,
 	password CHAR(32) NOT NULL	
 );
