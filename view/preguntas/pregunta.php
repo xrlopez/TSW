@@ -33,7 +33,7 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 			<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>
 			<input type="hidden" name="usuario" value="<?=$currentuser?>"/>
 			<?= isset($errors["comentario"])?$errors["comentario"]:"" ?>
-			<textarea name="coment" rows="7" cols="40" placeholder="<?= i18n("Type your answer")?> required"></textarea>
+			<textarea name="coment" rows="7" cols="40" placeholder="<?= i18n("Type your answer")?>" required></textarea>
 			<button type="submit" id="buttonComent"><?= i18n("You answer")?></button>
 		</form>
 	</div>
