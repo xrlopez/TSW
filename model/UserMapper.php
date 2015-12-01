@@ -2,6 +2,7 @@
 // file: model/UserMapper.php
 
 require_once(__DIR__."/../core/PDOConnection.php");
+require_once(__DIR__."/../model/Pregunta.php");
 require_once(__DIR__."/../model/User.php");
 
 
@@ -66,7 +67,7 @@ class UserMapper {
       return true;        
     }
   }
-  
+
   public function findById($userid){
     $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE idUsuario=?");
     $stmt->execute(array($userid));
@@ -74,12 +75,12 @@ class UserMapper {
     
     if($user != null) {
       return new User(
-		$user["idUsuario"],
-		$user["nombre"],
-		$user["apellidos"],
-		$user["correo"],
-		$user["password"]
-	);}
+    $user["idUsuario"],
+    $user["nombre"],
+    $user["apellidos"],
+    $user["correo"],
+    $user["password"]
+  );}
   }
 
   public function buscarInfo($busqueda){
@@ -94,10 +95,15 @@ class UserMapper {
     }    
     return $bus;
   }
-  
+
   public function update(User $user) {
     $stmt = $this->db->prepare("UPDATE usuarios set nombre=?, apellidos=?, correo=?, password=? where idUsuario=?");
     $stmt->execute(array($user->getNombre(), $user->getApellidos(), $user->getCorreo(), $user->getPassword(), $user->getId()));    
+  }
+
+  public function delete(User $user) {
+    $stmt = $this->db->prepare("DELETE from usuarios WHERE idUsuario=?");
+    $stmt->execute(array($user->getId()));
   }
    
 }

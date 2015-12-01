@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__."/../core/ViewManager.php");
+require_once(__DIR__."/../core/I18n.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
@@ -31,18 +32,23 @@ class RespuestasController extends BaseController {
 
   public function responder(){
 	if(isset($_POST["coment"])){
-		$respuesta = new Respuesta();
-		$respuesta->setPregunta($_POST["pregunta"]);
-		$respuesta->setDescripcion($_POST["coment"]);
-		$respuesta->setUsuario($_POST["usuario"]);
-		$this->respuestaMapper->save($respuesta);
-
-		$idp =$_POST["pregunta"];
-	    $preg = $this->preguntaMapper->findById($idp);
-	    $resp = $this->respuestaMapper->findAllByPregunta($idp);
-	    $this->view->setVariable("pregunta", $preg);
-	    $this->view->setVariable("respuestas",$resp);
-	    $this->view->render("preguntas", "pregunta");
+		if(strlen($_POST["coment"])<1){
+	      	$errors["comentario"] = i18n("You can not comment without content");
+	      	$this->view->setVariable("errors", $errors);	
+		}else{
+			$respuesta = new Respuesta();
+			$respuesta->setPregunta($_POST["pregunta"]);
+			$respuesta->setDescripcion($_POST["coment"]);
+			$respuesta->setUsuario($_POST["usuario"]);
+			$this->respuestaMapper->save($respuesta);
+		}
+		
+			$idp =$_POST["pregunta"];
+		    $preg = $this->preguntaMapper->findById($idp);
+		    $resp = $this->respuestaMapper->findAllByPregunta($idp);
+		    $this->view->setVariable("pregunta", $preg);
+		    $this->view->setVariable("respuestas",$resp);
+		    $this->view->render("preguntas", "pregunta");
   	}
   }
 

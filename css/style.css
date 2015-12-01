@@ -8,7 +8,14 @@ body{
 	padding-bottom: 10px;
 	padding-right: 10px;
 }
-
+#bot a{
+	color:white;
+}
+.error{
+	font-size: 18px;
+	font-weight: bold;
+	color:red;
+}
 #main{
     padding: 10px 30px;
 }
@@ -35,8 +42,11 @@ body{
 	font-weight: bold;
 	font-size: 20px;
 }
+.form{
+	padding-top: 5px;
+}
 
-ul#menu li{
+ul#menu li, ul#menu li form{
     display: inline;
 }
 ul#menu .home:hover{
@@ -47,14 +57,18 @@ ul#menu .home:hover{
 .informacion{
 	padding: 15px;
 	border-radius: 4px;
-	color: black;
+	color: white;
 	margin-bottom: 20px;
 	background-color: #748BA7;
 	clear: both;
 	width: inherit;
 }
-.informacion{
-	color: white;
+.informacion h2{
+	font-weight: bold;
+	text-align: center;
+}
+.informacion a{
+	color: black;
 }
 
 
@@ -68,6 +82,18 @@ ul#menu li a{
 ul#menu li a:hover {
     background-color: white;
 	color: black;
+}
+ul#menu li.flag a{
+    background-color: inherit;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-decoration: none;
+}
+ul#menu li.flag a:hover{
+    background-color: inherit;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-decoration: none;
 }
 
 ul.colMas {
@@ -196,6 +222,13 @@ ul.masP li a{
     text-decoration: none;
     border-radius: 4px;
 }
+ul.masP li.optionPeqSin{
+    background-color: #2B4A6F;
+    padding: 10px 20px;
+	color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
 
 ul.masP li a:hover {
 	font-weight: bold;
@@ -263,8 +296,12 @@ ul.masP li a:hover {
 	margin-bottom: 5px;
 }
 
-ul.masP li.option_sele a{
+ul.masP li.option_sele{
 	background-color: #748BA7;
+    padding: 10px 20px;
+	color: white;
+    text-decoration: none;
+    border-radius: 4px;
 }
 .inicio{
 	padding-right: 190px;
@@ -286,6 +323,11 @@ ul.masP li.option_sele a{
 	background-color: #748BA7;
 	border-radius: 4px;
 	padding: 10px;
+}
+.titulo{
+	font-size: 25px;
+	color: #0C0C47;
+	font-weight: bold;
 }
 
 .iniPreguntar{
@@ -336,12 +378,15 @@ ul.masP li.option_sele a{
 	text-decoration: none;
 }
 .registrarse{
+	font-size: 17px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	padding-left: 20px;
 }
-
 #form-aceptar{
 	display: inline;
 }
+
 @media (max-width: 420px){
 	.imgLogo{
 		width: 100%;

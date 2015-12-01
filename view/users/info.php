@@ -6,9 +6,9 @@
  $informacion = $view->getVariable("informacion");
 ?>
 <div class="informacion row">
-	<h2>Resultados de la busqueda</h2>
+	<h2><?= i18n("Search results")?></h2>
 		<?php if($informacion==null){?>
-			<p>No se ha encontrado informacion</p>
+			<p><?= i18n("No information has been found")?></p>
 		<?php } ?>
 		<?php foreach ($informacion as $info): ?>
 			<p><a href="index.php?controller=preguntas&amp;action=pregunta&amp;id=<?= $info->getId() ?>"><?= $info->getTitulo()?></a></p>

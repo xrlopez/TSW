@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__."/../core/ViewManager.php");
+require_once(__DIR__."/../core/I18n.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
@@ -44,7 +45,7 @@ class UsersController extends BaseController {
          
       }else{
       	$errors = array();
-      	$errors["general"] = "<span id=\"error\">El usuario o la contraseña no es correcta</span>";
+      	$errors["general"] = i18n("<span id=\"error\">Unrecognized username or password</span>");
       	$this->view->setVariable("errors", $errors);
       }
     }       
@@ -68,24 +69,23 @@ class UsersController extends BaseController {
         $user->setPassword($_POST["pass"]);
       }
       else{
-        $errors["pass"] = "Las contraseñas tienen que ser iguales";
+        $errors["pass"] = i18n("Passwords must be equal");
         $this->view->setVariable("errors", $errors);
         $this->view->render("users", "register"); 
         return false;
       }
-    
-      try{
-	      $user->checkIsValidForRegister();    
+      try{   
+        $user->checkIsValidForRegister(); 
 		  
       	if (!$this->userMapper->usernameExists($_POST["usuario"])){
         	  $this->userMapper->save($user);
-	          $this->view->setFlash("Usuario ".$user->getUsername()." registrado.");
+	          $this->view->setFlash(i18n("Registered user"));
 	          $this->view->redirect("users", "login");
-  } else {
-	  $errors = array();
-	  $errors["usuario"] = "El usuario ya existe";
-	  $this->view->setVariable("errors", $errors);
-	}
+      } else {
+        $errors = array();
+        $errors["usuario"] = i18n("User already exists");
+    	  $this->view->setVariable("errors", $errors);
+    	}
       }catch(ValidationException $ex) {
       	$errors = $ex->getErrors();
       	$this->view->setVariable("errors", $errors);
@@ -97,10 +97,16 @@ class UsersController extends BaseController {
   }
 
   public function buscarInfo(){
-    $busqueda = $_POST['busqueda'];
-    $result = $this->userMapper->buscarInfo($busqueda);
-    $this->view->setVariable("informacion",$result);
-    $this->view->render("users","info");
+    if(isset($_POST['busqueda'])){
+      $busqueda = $_POST['busqueda'];
+      $result = $this->userMapper->buscarInfo($busqueda);
+      $this->view->setVariable("informacion",$result);
+      $this->view->render("users","info");
+    }else{
+      $result = $this->userMapper->buscarInfo(null);
+      $this->view->setVariable("informacion",$result);
+      $this->view->render("users","info");
+    }
   }
 
  /**
@@ -126,8 +132,8 @@ class UsersController extends BaseController {
     $this->view->redirect("preguntas", "index");
    
   }
-  
-  public function perfil(){
+
+   public function perfil(){
     $currentuser = $this->view->getVariable("currentusername");
     $user = $this->userMapper->findById($currentuser);
     $this->view->setVariable("user", $user);
@@ -140,7 +146,26 @@ class UsersController extends BaseController {
     $this->view->setVariable("user", $user);
     $this->view->render("users", "modificar");
   }
-	
+
+  public function eliminar(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $user = $this->userMapper->findById($currentuser);
+    
+        
+    // Does the post exist?
+    if ($user == NULL) {
+      throw new Exception(i18n("Username does not exist"));
+    }
+    
+    // Delete the Jurado Popular object from the database
+    $this->userMapper->delete($user);
+   
+    $this->view->setFlash(i18n("Deleted user"));
+    session_unset();
+    session_destroy();
+    $this->view->redirect("preguntas", "index");
+  }
+  
   public function update(){
     $userid = $_REQUEST["usuario"];
     $user = $this->userMapper->findById($userid);
@@ -149,7 +174,7 @@ class UsersController extends BaseController {
     if($this->userMapper->isValidUser($_POST["usuario"],$_POST["passActual"])){
         if (isset($_POST["usuario"])) {  
           $user->setNombre($_POST["nombre"]);
-		  $user->setApellidos($_POST["apellidos"]);
+      $user->setApellidos($_POST["apellidos"]);
           $user->setCorreo($_POST["correo"]);
 
           if(!(strlen(trim($_POST["passNew"])) == 0)){
@@ -157,7 +182,7 @@ class UsersController extends BaseController {
               $user->setPassword($_POST["passNueva"]);
             }
             else{
-              $errors["pass"] = "Las contraseñas tienen que ser iguales";
+              $errors["pass"] = i18n("Passwords must be equal");
               $this->view->setVariable("errors", $errors);
               $this->view->setVariable("user", $user);
               $this->view->render("users", "modificar"); 
@@ -167,7 +192,7 @@ class UsersController extends BaseController {
           
             try{
               $this->userMapper->update($user);
-              $this->view->setFlash(sprintf("Usuario \"%s\" modificado correctamente.",$user ->getNombre()));
+              $this->view->setFlash(i18n("Modified user correctly"));
               $this->view->redirect("users", "perfil"); 
             }catch(ValidationException $ex) {
             $errors = $ex->getErrors();
@@ -177,7 +202,7 @@ class UsersController extends BaseController {
 
     }
     else{
-        $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+        $errors["passActual"] = i18n("Incorrect password");
         $this->view->setVariable("errors", $errors);
         $this->view->setVariable("user", $user);
         $this->view->render("users", "modificar"); 

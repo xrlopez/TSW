@@ -17,11 +17,11 @@
 
 <div class="registrar row">
 <div class="formLogin col-xs-12 col-sm-12 col-md-12">
-    <h2>Datos de usuario</h2>
+    <span class="titulo"><?= i18n("User")?></span>
 	    <div>
-		    <div class="registrarse">
+		    <div class="row registrarse">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
-			    	Usuario:  
+			    	<?= i18n("Username")?>:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
 			    	<?= $user->getId()?>  
@@ -29,7 +29,7 @@
 	    	</div>
 	    	<div class="row registrarse">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
-		    		Nombre:
+		    		<?= i18n("Name")?>:
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
 			    	<?= $user->getNombre()?>  
@@ -37,7 +37,7 @@
 	    	</div>
 			<div class="row registrarse">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
-		    		Apellidos:
+		    		<?= i18n("Last name")?>:
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
 			    	<?= $user->getApellidos()?>  
@@ -45,7 +45,7 @@
 	    	</div>
 		    <div class="row registrarse">
 		    	<div class="col-xs-4 col-sm-4 col-md-4 info">
-		    		Correo:  
+		    		<?= i18n("Email")?>:  
 		    	</div>
 		    	<div class="col-xs-8 col-sm-8 col-md-8">
 			    	<?= $user->getCorreo()?>  
@@ -55,8 +55,12 @@
 	    </div>
 		<div class="botones">
 			<form class="form col-md-12" name="perfil" action="index.php?controller=users&amp;action=modificar" method="post">
-				<button type="submit" id="perfil">Modificar</button>
+				<button type="submit" id="perfil"><?= i18n("Modify")?></button>
 			</form>
+			<form id="form-eliminar" class="form col-md-12" action="index.php?controller=users&amp;action=eliminar" method="post">
+				
+				<p id="bot"><a href="#" onclick="if (confirm('<?= i18n("Are you sure?")?>')) {document.getElementById('form-eliminar').submit()}"><?= i18n("Delete")?></a></p>
+		 	</form>
 		</div>
 	    
     </div>

@@ -1,6 +1,7 @@
 <?php
 
 require_once(__DIR__."/../core/ViewManager.php");
+require_once(__DIR__."/../core/I18n.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
@@ -43,13 +44,43 @@ class PreguntasController extends BaseController {
   }
 
   public function index(){
-  
-    $preguntas = $this->preguntaMapper->findAll();
-    $this->view->setVariable("preguntas", $preguntas);    
-    
+    $preguntas = $this->preguntaMapper->getPreguntas();
+
+    $numPreguntas = $this->preguntaMapper->getNumPreguntas();
+
+    $this->view->setVariable("num_pagina", 1);
+
+    if (5 < $numPreguntas ) {
+      $fin = 5;
+    }else{
+      $fin = $numPreguntas;
+    }
+    $this->view->setVariable("inicio", 1);
+    $this->view->setVariable("fin", $fin);
+    $this->view->setVariable("preguntas", $preguntas);  
+    $this->view->setVariable("numPreguntas", $numPreguntas);
     $this->view->render("preguntas", "index");
 
   }
+
+  public function page()
+    {
+      $numPage = $_GET['page'];
+
+      $inicio = $numPage*5-4;
+      $preguntas = $this->preguntaMapper->getPreguntas($inicio-1,5);
+      $numPreguntas = $this->preguntaMapper->getNumPreguntas();
+      $fin = $numPage*5;
+      if ($fin > $numPreguntas['num'] ) {
+        $fin = $numPreguntas['num'];
+      }
+      $this->view->setVariable("inicio", $inicio);
+      $this->view->setVariable("fin", $fin);
+      $this->view->setVariable("num_pagina", $numPage);
+      $this->view->setVariable("numPreguntas", $numPreguntas);
+      $this->view->setVariable("preguntas", $preguntas);
+      $this->view->render("preguntas", "index"); 
+    }
 
   public function pregunta(){
     if(isset($_GET["id"])){
@@ -79,7 +110,7 @@ class PreguntasController extends BaseController {
           $this->view->render("preguntas", "preguntar");
       }
     }else{
-      $this->view->setFlash("Para preguntar tienes que iniciar sesion");
+      $this->view->setFlash(i18n("To ask you have login"));
       $this->view->render("users", "login");    
     }
   }

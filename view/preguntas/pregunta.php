@@ -7,6 +7,7 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
  
  $currentuser = $view->getVariable("currentusername");
  $pregunta = $view->getVariable("pregunta");
+ $errors = $view->getVariable("errors");
  $respuestas = $view->getVariable("respuestas");
  
  $view->setVariable("title", "Preguntas");
@@ -31,13 +32,14 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 		<form action="index.php?controller=respuestas&amp;action=responder" method="post" >
 			<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>
 			<input type="hidden" name="usuario" value="<?=$currentuser?>"/>
-			<textarea name="coment" rows="7" cols="40">Escribe tu respuesta</textarea>
-			<button type="submit" id="buttonComent">responder</button>
+			<?= isset($errors["comentario"])?$errors["comentario"]:"" ?>
+			<textarea name="coment" rows="7" cols="40" placeholder="<?= i18n("Type your answer")?> required"></textarea>
+			<button type="submit" id="buttonComent"><?= i18n("You answer")?></button>
 		</form>
 	</div>
 <?php }else{?>
 	<div class="sinRegistrar" >
-		<a href="index.php?controller=users&amp;action=login">Para comentar y votar tienes que iniciar sesion</a>
+		<a href="index.php?controller=users&amp;action=login"><?= i18n("To comment and vote you have login")?></a>
 	</div>
 <?php }?>
 

@@ -17,20 +17,20 @@
 
 <div class="registrar row">
 	<div class="formLogin col-xs-12 col-sm-12 col-md-12">
-		<h2>Datos de usuario</h2>
+		<span class="titulo"><?= i18n("User")?></span>
 		<div>
 			<form id="form-aceptar" action="index.php?controller=users&amp;action=update" method="post" >
 				<div class="registrarse">
-					<h2>Usuario</h2><input type="text" name="usuario" id="usuario" readonly = "readonly" value="<?= $user->getId()?>"/>														
-					<h2>Nombre</h2><input type="text" name="nombre" id="nombre" value="<?= $user->getNombre()?>"/>
-					<h2>Apellidos</h2><input type="text" name="apellidos" id="apellidos" value="<?= $user->getApellidos()?>"/>
-					<h2>Correo</h2><input type="text" name="correo" id="correo" value="<?= $user->getCorreo()?>"/>
-					<h2>Contraseña actual</h2><input type="password" name="passActual" id="passActual" required/>
-					<h2>Contraseña nueva</h2><input type="password" name="passNueva" id="passNueva"/>
-					<h2>Repetir contraseña nueva</h2><input type="password" name="passNew" id="passNew"/>
+					<h2><?= i18n("Username")?></h2><input type="text" name="usuario" id="usuario" readonly = "readonly" value="<?= $user->getId()?>" required/>														
+					<h2><?= i18n("Name")?></h2><input type="text" name="nombre" id="nombre" value="<?= $user->getNombre()?>" required/>
+					<h2><?= i18n("Last name")?></h2><input type="text" name="apellidos" id="apellidos" value="<?= $user->getApellidos()?>" required/>
+					<h2><?= i18n("Email")?></h2><input type="text" name="correo" id="correo" value="<?= $user->getCorreo()?>" required/>
+					<h2><?= i18n("Current password")?></h2><input type="password" name="passActual" id="passActual" required/><span class="error"><?= isset($errors["passActual"])?$errors["passActual"]:"" ?></span>
+					<h2><?= i18n("New password")?></h2><input type="password" name="passNueva" id="passNueva"/><span class="error"><?= isset($errors["pass"])?$errors["pass"]:"" ?></span>
+					<h2><?= i18n("Confirm password")?></h2><input type="password" name="passNew" id="passNew"/>
 				</div>
 				<div class="botones">
-					<button type="submit" id="modificar">Aceptar</button>
+					<button type="submit" id="modificar"><?= i18n("Accept")?></button>
 				</div>	
 					
 			</form>

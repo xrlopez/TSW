@@ -28,10 +28,10 @@ class User {
    * @param string $passwd The password of the user
    */
   public function __construct($username=NULL, $name=NULL, $surname=NULL, $email=NULL, $passwd=NULL) {
-    $this->username = $username;
-	$this->name = $name;
-	$this->surname = $surname;
-	$this->email = $email;
+     $this->username = $username;
+    $this->name = $name;
+    $this->surname = $surname;
+    $this->email = $email;
     $this->passwd = $passwd;    
   }
  
@@ -73,36 +73,29 @@ class User {
   public function setPassword($passwd) {
     $this->passwd = $passwd;
   }
-  
-  /**
-   * Checks if the current user instance is valid
-   * for being registered in the database
-   * 
-   * @throws ValidationException if the instance is
-   * not valid
-   * 
-   * @return void
-   */  
+
   public function checkIsValidForRegister() {
       $errors = array();
       if (strlen($this->username) < 5) {
-	$errors["username"] = "Username must be at least 5 characters length";
-	
-      }
-      if (strlen($this->name) < 5) {
-	$errors["name"] = "Name must be at least 5 characters length";	
-      }
-	  if (strlen($this->surname) < 5) {
-	$errors["surname"] = "Surname must be at least 5 characters length";	
-      }
-	  if (strlen($this->email) < 5) {
-	$errors["email"] = "Email must be at least 5 characters length";	
-      }
-	  if (strlen($this->passwd) < 5) {
-	$errors["passwd"] = "Password must be at least 5 characters length";	
-      }
-      if (sizeof($errors)>0){
-	throw new ValidationException($errors, "user is not valid");
-      }
+      $errors["username"] = "Username must be at least 5 characters length";
+      
+          }
+          if (strlen($this->name) < 5) {
+      $errors["name"] = "Name must be at least 5 characters length";  
+          }
+        if (strlen($this->surname) < 5) {
+      $errors["surname"] = "Surname must be at least 5 characters length";  
+          }
+        if (strlen($this->email) < 5) {
+      $errors["email"] = "Email must be at least 5 characters length";  
+          }
+        if (strlen($this->passwd) < 5) {
+      $errors["passwd"] = "Password must be at least 5 characters length";  
+          }
+          if (sizeof($errors)>0){
+      throw new ValidationException($errors, "user is not valid");
+          }
   } 
+  
+  
 }

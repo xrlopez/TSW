@@ -21,7 +21,7 @@ CREATE TABLE preguntas(
 	descripcion CHAR(100) NOT NULL,
 	fecha DATE NOT NULL,
 	idUsuario VARCHAR(15) NOT NULL,
-	CONSTRAINT FK_usuarios_preguntas FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario)	
+	CONSTRAINT FK_usuarios_preguntas FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE	
 );
 
 CREATE TABLE respuestas(
@@ -31,8 +31,8 @@ CREATE TABLE respuestas(
 	votosPositivos INT NOT NULL,
 	votosNegativos INT NOT NULL,
 	idUsuario VARCHAR(15) NOT NULL,
-	CONSTRAINT FK_usuarios_respuestas FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario),	
-	CONSTRAINT FK_preguntas_respuestas FOREIGN KEY  (idPregunta) REFERENCES preguntas(idPregunta)
+	CONSTRAINT FK_usuarios_respuestas FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE,	
+	CONSTRAINT FK_preguntas_respuestas FOREIGN KEY  (idPregunta) REFERENCES preguntas(idPregunta) ON DELETE CASCADE
 );
 
 INSERT INTO `usuarios` (`idUsuario`, `nombre`, `correo`, `password`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `preguntas` (`idPregunta`, `titulo`, `descripcion`, `fecha`, `idUsua
 (1, 'Preg 1', 'descripcion preg 1', '2015-11-22', 'maria'),
 (2, 'Preg 2', 'descripcion preg 2', '2015-11-21', 'pepe'),
 (3, 'Pregunta Luisa', 'algo', '2015-11-04', 'luisa'),
-(4, 'Pregunta Antoni', 'no se', '2015-11-22', 'antonio');
+(4, 'Pregunta Antonio', 'no se', '2015-11-22', 'antonio');
 
 INSERT INTO `respuestas` (`idRespuesta`, `idPregunta`, `descripcion`, `votosPositivos`, `votosNegativos`, `idUsuario`) VALUES
 (1, 1, 'respuesta 1', 1, 0, 'maria'),

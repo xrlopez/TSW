@@ -4,12 +4,6 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
  $currentuser = $view->getVariable("currentusername"); 
- $buscar = <<< HEREDOC
-	<form id="form-aceptar" action="index.php?controller=users&amp;action=buscarInfo" method="post" >
-		<input type="search" id="busqueda" name="busqueda" size="30" placeholder="buscar">
-		<button type="submit" name="submit" id="buttonBusqueda">buscar</button>
-	</form>
-HEREDOC
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,10 +32,15 @@ HEREDOC
 						<a class="home" href="index.php"><img src="images/home.png" alt="logo" height="25" width="25"></a>
 					  </li>
 					  <li >
-						<?php echo $buscar; ?>
+						<form action="index.php?controller=users&amp;action=buscarInfo" method="post" >
+							<input type="search" id="busqueda" name="busqueda" size="30" placeholder="<?= i18n("Search")?>">
+							<button type="submit" name="submit" id="buttonBusqueda"><?= i18n("Search")?></button>
+						</form>
 					  </li>
-					  <li class="option"><a href="preguntar.html">Preguntar</a></li>
-					  <li class="option"><a href="index.php?controller=users&amp;action=login">Iniciar sesion</a></li>
+					  <li class="option"><a href="index.php?controller=preguntas&amp;action=preguntar"><?= i18n("Ask")?></a></li>
+					  <li class="option"><a href="index.php?controller=users&amp;action=login"><?= i18n("Log in")?></a></li>
+					  <li class="flag"><a href="index.php?controller=language&amp;action=change&amp;lang=en"><img src="images/england_flag.png" alt="logo" ></a>
+					  	<a href="index.php?controller=language&amp;action=change&amp;lang=es"><img src="images/bandera_espana.png" alt="logo"></a></li>
 					</ul> 
 				<?php }else{ ?>
 					<ul id="menu">
@@ -50,12 +49,15 @@ HEREDOC
 					  </li>
 					  <li >
 						<form id="form-aceptar" action="index.php?controller=users&amp;action=buscarInfo" method="post" >
-							<input type="search" id="busqueda" name="busqueda" size="30" placeholder="buscar">
-							<button type="submit" name="submit" id="buttonBusqueda">buscar</button>
+							<input type="search" id="busqueda" name="busqueda" size="30" placeholder="<?= i18n("Search")?>">
+							<button type="submit" name="submit" id="buttonBusqueda"><?= i18n("Search")?></button>
 						</form>
 					  </li>
-					  <li class="option"><a href="index.php?controller=users&amp;action=perfil">Perfil</a></li>
-					  <li class="option"><a href="index.php?controller=users&amp;action=logout">Salir</a></li>
+					  <li class="option"><a href="index.php?controller=preguntas&amp;action=preguntar"><?= i18n("Ask")?></a></li>
+					  <li class="option"><a href="index.php?controller=users&amp;action=perfil"><?= i18n("Profile")?></a></li>
+					  <li class="option"><a href="index.php?controller=users&amp;action=logout"><?= i18n("Log out")?></a></li>
+					  <li class="flag"><a href="index.php?controller=language&amp;action=change&amp;lang=en"><img src="images/england_flag.png" alt="logo" ></a></li>
+					  <li class="flag"><a href="index.php?controller=language&amp;action=change&amp;lang=es"><img src="images/bandera_espana.png" alt="logo"></a></li>
 					</ul> 
 				<?php } ?>	
 			</div>	
@@ -70,7 +72,7 @@ HEREDOC
 			</div>
 			<div id="news" class="col-xs-12 col-sm-12 col-md-4">
 				<ul class="colMas">						
-					<li><h2>Preguntas mas votadas</h2></li>
+					<li><h2><?= i18n("Top questions")?></h2></li>
 					<li class="preg"><a href="pregunta.html">Soy una persona?</a></li>
 					<li class="preg"><a href="pregunta.html">Cual es el sentido de la vida?</a></li>
 					<li class="preg"><a href="pregunta.html">Que son los caminantes blancos?</a></li>
@@ -79,7 +81,7 @@ HEREDOC
 					
 				</ul>
 				<ul class="colMas">
-					<li><h2>Usuarios que mas votan</h2></li>
+					<li><h2><?= i18n("Top users")?></h2></li>
 					<li class="preg"><a href="perfil.html">federico</a></li>
 					<li class="preg"><a href="perfil.html">manuela</a></li>
 					<li class="preg"><a href="perfil.html">mrRareza</a></li>

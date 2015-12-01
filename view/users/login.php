@@ -13,12 +13,12 @@
 		<?= isset($errors["general"])?$errors["general"]:"" ?>
 		<form class="formLogin col-md-12" name="login" action="index.php?controller=users&amp;action=login" method="post">
 			<div class="iniciar_sesion">
-				<h2>Nombre</h2><input type="text" id="username" name="username"/>
-				<h2>Contraseña</h2><input type="password" id="passwd" name="passwd"/>
+				<h2><?= i18n("Username")?></h2><input type="text" id="username" name="username" required/>
+				<h2><?= i18n("Password")?></h2><input type="password" id="passwd" name="passwd" required/>
 			</div>
 			<div class="botones">
-				<a href="index.php?controller=users&amp;action=register">Registrarse</a>
-				<button type="submit" id="login">Iniciar sesion</button>
+				<a href="index.php?controller=users&amp;action=register"><?= i18n("Sign up")?></a>
+				<button type="submit" id="login"><?= i18n("Log in")?></button>
 			</div>
 		</form>
 	</div>
