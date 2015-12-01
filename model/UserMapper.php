@@ -2,7 +2,7 @@
 // file: model/UserMapper.php
 
 require_once(__DIR__."/../core/PDOConnection.php");
-require_once(__DIR__."/../model/Pregunta.php");
+require_once(__DIR__."/../model/User.php");
 
 
 /**
@@ -33,7 +33,7 @@ class UserMapper {
    */      
   public function save($user) {
     $stmt = $this->db->prepare("INSERT INTO usuarios values (?,?,?,?,?)");
-    $stmt->execute(array($user->getUsername(), $user->getName(), $user->getSurname(), $user->getEmail(), $user->getPassword()));
+    $stmt->execute(array($user->getId(), $user->getNombre(), $user->getApellidos(), $user->getCorreo(), $user->getPassword()));
   }
   
   /**
@@ -66,6 +66,21 @@ class UserMapper {
       return true;        
     }
   }
+  
+  public function findById($userid){
+    $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE idUsuario=?");
+    $stmt->execute(array($userid));
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if($user != null) {
+      return new User(
+		$user["idUsuario"],
+		$user["nombre"],
+		$user["apellidos"],
+		$user["correo"],
+		$user["password"]
+	);}
+  }
 
   public function buscarInfo($busqueda){
     
@@ -78,6 +93,11 @@ class UserMapper {
       array_push($bus, new Pregunta($preg["idPregunta"], $preg["titulo"], $preg["descripcion"], $preg["fecha"], $preg["idUsuario"]));
     }    
     return $bus;
+  }
+  
+  public function update(User $user) {
+    $stmt = $this->db->prepare("UPDATE usuarios set nombre=?, apellidos=?, correo=?, password=? where idUsuario=?");
+    $stmt->execute(array($user->getNombre(), $user->getApellidos(), $user->getCorreo(), $user->getPassword(), $user->getId()));    
   }
    
 }

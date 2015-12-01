@@ -127,4 +127,61 @@ class UsersController extends BaseController {
    
   }
   
+  public function perfil(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $user = $this->userMapper->findById($currentuser);
+    $this->view->setVariable("user", $user);
+    $this->view->render("users", "perfil");
+  }
+
+  public function modificar(){
+    $currentuser = $this->view->getVariable("currentusername");
+    $user = $this->userMapper->findById($currentuser);
+    $this->view->setVariable("user", $user);
+    $this->view->render("users", "modificar");
+  }
+	
+  public function update(){
+    $userid = $_REQUEST["usuario"];
+    $user = $this->userMapper->findById($userid);
+
+    $errors = array();
+    if($this->userMapper->isValidUser($_POST["usuario"],$_POST["passActual"])){
+        if (isset($_POST["usuario"])) {  
+          $user->setNombre($_POST["nombre"]);
+		  $user->setApellidos($_POST["apellidos"]);
+          $user->setCorreo($_POST["correo"]);
+
+          if(!(strlen(trim($_POST["passNew"])) == 0)){
+            if ($_POST["passNew"]==$_POST["passNueva"]) {
+              $user->setPassword($_POST["passNueva"]);
+            }
+            else{
+              $errors["pass"] = "Las contraseñas tienen que ser iguales";
+              $this->view->setVariable("errors", $errors);
+              $this->view->setVariable("user", $user);
+              $this->view->render("users", "modificar"); 
+              return false;
+            }
+          }
+          
+            try{
+              $this->userMapper->update($user);
+              $this->view->setFlash(sprintf("Usuario \"%s\" modificado correctamente.",$user ->getNombre()));
+              $this->view->redirect("users", "perfil"); 
+            }catch(ValidationException $ex) {
+            $errors = $ex->getErrors();
+            $this->view->setVariable("errors", $errors);
+          } 
+        }
+
+    }
+    else{
+        $errors["passActual"] = "<span>La contraseña es obligatoria</span>";
+        $this->view->setVariable("errors", $errors);
+        $this->view->setVariable("user", $user);
+        $this->view->render("users", "modificar"); 
+      }
+  }
+  
 }

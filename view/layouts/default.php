@@ -4,6 +4,12 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
  $currentuser = $view->getVariable("currentusername"); 
+ $buscar = <<< HEREDOC
+	<form id="form-aceptar" action="index.php?controller=users&amp;action=buscarInfo" method="post" >
+		<input type="search" id="busqueda" name="busqueda" size="30" placeholder="buscar">
+		<button type="submit" name="submit" id="buttonBusqueda">buscar</button>
+	</form>
+HEREDOC
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,10 +38,7 @@
 						<a class="home" href="index.php"><img src="images/home.png" alt="logo" height="25" width="25"></a>
 					  </li>
 					  <li >
-						<form id="form-aceptar" action="index.php?controller=users&amp;action=buscarInfo" method="post" >
-							<input type="search" id="busqueda" name="busqueda" size="30" placeholder="buscar">
-							<button type="submit" name="submit" id="buttonBusqueda">buscar</button>
-						</form>
+						<?php echo $buscar; ?>
 					  </li>
 					  <li class="option"><a href="preguntar.html">Preguntar</a></li>
 					  <li class="option"><a href="index.php?controller=users&amp;action=login">Iniciar sesion</a></li>
@@ -51,7 +54,7 @@
 							<button type="submit" name="submit" id="buttonBusqueda">buscar</button>
 						</form>
 					  </li>
-					  <li class="option"><a href="preguntar.html">Perfil</a></li>
+					  <li class="option"><a href="index.php?controller=users&amp;action=perfil">Perfil</a></li>
 					  <li class="option"><a href="index.php?controller=users&amp;action=logout">Salir</a></li>
 					</ul> 
 				<?php } ?>	

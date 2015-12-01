@@ -339,6 +339,9 @@ ul.masP li.option_sele a{
 	padding-left: 20px;
 }
 
+#form-aceptar{
+	display: inline;
+}
 @media (max-width: 420px){
 	.imgLogo{
 		width: 100%;
