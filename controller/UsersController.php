@@ -6,6 +6,7 @@ require_once(__DIR__."/../core/I18n.php");
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 
+require_once(__DIR__."/../controller/PreguntasController.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
 /**
@@ -23,7 +24,7 @@ class UsersController extends BaseController {
    * 
    * @var UserMapper
    */  
-  private $userMapper;    
+  private $userMapper;
   
   public function __construct() {    
     parent::__construct();
@@ -33,10 +34,12 @@ class UsersController extends BaseController {
     // Users controller operates in a "welcome" layout
     // different to the "default" layout where the internal
     // menu is displayed
-    $this->view->setLayout("welcome");     
+	$this->preguntasController = new PreguntasController();
+    $this->view->setLayout("welcome");
   }
 
   public function login() {
+	$this->preguntasController->listados();
     if (isset($_POST["username"])){ // reaching via HTTP Post...
       //process login form    
       if ($this->userMapper->isValidUser($_POST["username"],$_POST["passwd"])) {
@@ -56,6 +59,7 @@ class UsersController extends BaseController {
 
    
    public function register() { 
+    $this->preguntasController->listados();
     //$this->view->render("users", "register");
 	$user = new User();
 
@@ -97,6 +101,7 @@ class UsersController extends BaseController {
   }
 
   public function buscarInfo(){
+	$this->preguntasController->listados();
     if(isset($_POST['busqueda'])){
       $busqueda = $_POST['busqueda'];
       $result = $this->userMapper->buscarInfo($busqueda);
@@ -134,6 +139,7 @@ class UsersController extends BaseController {
   }
 
    public function perfil(){
+	$this->preguntasController->listados();
     $currentuser = $this->view->getVariable("currentusername");
     $user = $this->userMapper->findById($currentuser);
     $this->view->setVariable("user", $user);
@@ -141,6 +147,7 @@ class UsersController extends BaseController {
   }
 
   public function modificar(){
+	$this->preguntasController->listados();
     $currentuser = $this->view->getVariable("currentusername");
     $user = $this->userMapper->findById($currentuser);
     $this->view->setVariable("user", $user);

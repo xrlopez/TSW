@@ -19,7 +19,7 @@
 			<h2><?= i18n("Confirm password")?></h2><input type="password" name="repass" id="repass" required/>
 		</div>
 		<div class="botones">
-			<button type="submit" id="register"><?= i18n("Sign in")?></button>
+			<button type="submit" id="register"><?= i18n("Sign up")?></button>
 		</div>
 	</form>
 </div>

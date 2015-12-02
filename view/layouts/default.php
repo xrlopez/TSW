@@ -3,7 +3,10 @@
  
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
- $currentuser = $view->getVariable("currentusername"); 
+ $currentuser = $view->getVariable("currentusername");
+ 
+ $preguntasMV = $view->getVariable("preguntasMV"); 
+ $usuariosMP = $view->getVariable("usuariosMP");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,20 +76,16 @@
 			<div id="news" class="col-xs-12 col-sm-12 col-md-4">
 				<ul class="colMas">						
 					<li><h2><?= i18n("Top questions")?></h2></li>
-					<li class="preg"><a href="pregunta.html">Soy una persona?</a></li>
-					<li class="preg"><a href="pregunta.html">Cual es el sentido de la vida?</a></li>
-					<li class="preg"><a href="pregunta.html">Que son los caminantes blancos?</a></li>
-					<li class="preg"><a href="pregunta.html">A que esperas?</a></li>
-					<li class="preg"><a href="pregunta.html">Quien vive ahi?</a></li>
+					<?php foreach($preguntasMV as $preguntaMV){ ?>
+						<li class="preg"><a href="index.php?controller=preguntas&amp;action=pregunta&amp;id=<?= $preguntaMV['idPregunta']; ?>"><?php echo "$preguntaMV[titulo]"; ?></a></li>                          
+					<?php } ?>
 					
 				</ul>
 				<ul class="colMas">
 					<li><h2><?= i18n("Top users")?></h2></li>
-					<li class="preg"><a href="perfil.html">federico</a></li>
-					<li class="preg"><a href="perfil.html">manuela</a></li>
-					<li class="preg"><a href="perfil.html">mrRareza</a></li>
-					<li class="preg"><a href="perfil.html">vampiro57</a></li>
-					<li class="preg"><a href="perfil.html">facundo</a></li>
+					<?php foreach($usuariosMP as $usuarioMP){ ?>
+						<li class="preg"><a href="index.php?controller=preguntas&amp;action=usuariosMP&amp;id=<?= $usuarioMP['idUsuario']; ?>"><?php echo "$usuarioMP[idUsuario]"; ?></a></li>                          
+					<?php } ?>
 				</ul>
 			</div>
 		</div>

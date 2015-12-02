@@ -44,12 +44,12 @@ class PreguntasController extends BaseController {
   }
 
   public function index(){
+	$this->listados();
     $preguntas = $this->preguntaMapper->getPreguntas();
-
+	
     $numPreguntas = $this->preguntaMapper->getNumPreguntas();
 
     $this->view->setVariable("num_pagina", 1);
-
     if (5 < $numPreguntas ) {
       $fin = 5;
     }else{
@@ -65,6 +65,7 @@ class PreguntasController extends BaseController {
 
   public function page()
     {
+	  $this->listados();
       $numPage = $_GET['page'];
 
       $inicio = $numPage*5-4;
@@ -83,6 +84,7 @@ class PreguntasController extends BaseController {
     }
 
   public function pregunta(){
+	$this->listados();
     if(isset($_GET["id"])){
       $idpre = $_GET["id"];
       $pregunta = $this->preguntaMapper->findById($idpre);
@@ -96,6 +98,7 @@ class PreguntasController extends BaseController {
 
 
   public function preguntar(){
+	$this->listados();
     if(isset($_SESSION["currentuser"])){
       if(isset($_POST["submit"])){
         $pregunta = new Pregunta();
@@ -114,8 +117,36 @@ class PreguntasController extends BaseController {
       $this->view->render("users", "login");    
     }
   }
+  
+  public function listados(){
+	   $preguntasMV = $this->preguntaMapper->preguntasMV();
+	   $this->view->setVariable("preguntasMV", $preguntasMV);
+	   $usuariosMP = $this->preguntaMapper->usuariosMP();
+	   $this->view->setVariable("usuariosMP", $usuariosMP);
+  }
 
-
+  
+  public function usuariosMP(){
+	  
+	$this->listados();
+    if(isset($_GET["id"])){
+      $iduser = $_GET["id"];
+      $preguntasUsuario = $this->preguntaMapper->preguntasUsuario($iduser);
+	  $numPreguntas = $this->preguntaMapper->getNumPreguntas();
+	  
+	  $this->view->setVariable("num_pagina", 1);
+	  if (5 < $numPreguntas ) {
+		$fin = 5;
+      }else{
+		$fin = $numPreguntas;
+      }
+      $this->view->setVariable("inicio", 1);
+      $this->view->setVariable("fin", $fin);
+	  $this->view->setVariable("preguntasUsuario", $preguntasUsuario);	  
+      $this->view->setVariable("numPreguntas", $numPreguntas);
+      $this->view->render("preguntas", "usuariosMP");
+    }
+  }
 
   
 }

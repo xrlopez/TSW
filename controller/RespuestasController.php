@@ -9,6 +9,7 @@ require_once(__DIR__."/../model/Respuesta.php");
 require_once(__DIR__."/../model/RespuestaMapper.php");
 require_once(__DIR__."/../model/PreguntaMapper.php");
 
+require_once(__DIR__."/../controller/PreguntasController.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
 class RespuestasController extends BaseController {
@@ -23,7 +24,7 @@ class RespuestasController extends BaseController {
     $this->userMapper = new UserMapper();
     $this->respuestaMapper = new RespuestaMapper();
     $this->preguntaMapper = new preguntaMapper();
-
+	$this->preguntasController = new PreguntasController();
     // Users controller operates in a "welcome" layout
     // different to the "default" layout where the internal
     // menu is displayed
@@ -31,6 +32,7 @@ class RespuestasController extends BaseController {
   }
 
   public function responder(){
+	$this->preguntasController->listados();
 	if(isset($_POST["coment"])){
 		if(strlen($_POST["coment"])<1){
 	      	$errors["comentario"] = i18n("You can not comment without content");
@@ -53,6 +55,7 @@ class RespuestasController extends BaseController {
   }
 
   	public function votar(){
+		$this->preguntasController->listados();
 	  	if(isset($_POST["positivo"])){
 	  		$respuesta = $this->respuestaMapper->findById($_POST["respuesta"]);
 	  		$this->respuestaMapper->votarPositivo($respuesta);

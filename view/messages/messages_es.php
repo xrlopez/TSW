@@ -46,6 +46,6 @@
     "Top questions" => "Preguntas mas votadas",
     "User" => "Datos de usuario",
     "Modify" => "Modificar",
-    "Top users" => "Usuarios que mas votan"
+    "Top users" => "Usuarios que mas preguntan"
   )
 ?>

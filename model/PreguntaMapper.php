@@ -67,5 +67,31 @@ class PreguntaMapper {
         return NULL;
       }   
   } 
+  
+  public function preguntasMV(){
+	$stmt = $this->db->query("SELECT * FROM respuestas, preguntas WHERE preguntas.idPregunta = respuestas.idPregunta 
+								GROUP BY respuestas.idPregunta ORDER BY votosPositivos - votosNegativos DESC LIMIT 5");
+    $pre = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $pre;
+  }
+  
+  public function usuariosMP(){
+	$stmt = $this->db->query("SELECT COUNT(*) AS total, idPregunta, titulo, descripcion, fecha, idUsuario FROM preguntas GROUP BY idUsuario DESC LIMIT 5");
+    $pre = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	return $pre;
+  }
+  
+  public function preguntasUsuario($userid){
+	$stmt = $this->db->prepare("SELECT * FROM preguntas WHERE idUsuario=?");
+	$stmt->execute(array($userid));
+    $pre = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	$pregs = array();
+	  
+	foreach($pre as $preg){
+		array_push($pregs, new Pregunta($preg["idPregunta"], $preg["titulo"], $preg["descripcion"], $preg["fecha"], $preg["idUsuario"]));
+	}
+	return $pregs;  
+  }
     
 }
