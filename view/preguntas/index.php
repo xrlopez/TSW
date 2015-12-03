@@ -26,7 +26,7 @@
 					<h2><?= i18n("Answers")?></h2>
 			</div>
 			<div class="texto col-xs-12 col-sm-12 col-md-12">
-				<a href="index.php?controller=preguntas&amp;action=pregunta&amp;id=<?= $pregunta->getId() ?>"><h2><?= $pregunta->getDescripcion() ?></h2></a>
+				<a href="index.php?controller=preguntas&amp;action=pregunta&amp;id=<?= $pregunta->getId() ?>"><h2><?= $pregunta->getTitulo() ?></h2></a>
 				<h3><?= $pregunta->getFecha() ?></h3>
 			</div>
 		</div>

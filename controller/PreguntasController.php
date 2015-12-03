@@ -101,14 +101,25 @@ class PreguntasController extends BaseController {
 	$this->listados();
     if(isset($_SESSION["currentuser"])){
       if(isset($_POST["submit"])){
-        $pregunta = new Pregunta();
-        $pregunta->setTitulo($_POST["pregunta"]);
-        $pregunta->setDescripcion($_POST["descripcion"]);
-        $time = time();
-        $pregunta->setFecha(date("Y-m-d", $time));
-        $pregunta->setUsuario($_POST["usuario"]);
-        $this->preguntaMapper->save($pregunta);
-        $this->view->redirect("preguntas", "index");
+		if($_POST["submit"]==i18n("Ask")){
+			$pregunta = new Pregunta();
+			if((strlen($_POST["pregunta"])>1) && (strlen($_POST["descripcion"])>1)){
+				$pregunta->setTitulo($_POST["pregunta"]);
+				$pregunta->setDescripcion($_POST["descripcion"]);
+				$time = time();
+				$pregunta->setFecha(date("Y-m-d", $time));
+				$pregunta->setUsuario($_POST["usuario"]);
+				$this->preguntaMapper->save($pregunta);
+				$this->view->redirect("preguntas", "index");
+			} else{
+				$errors["general"] = i18n("You can not ask with empty fields");
+				$this->view->setVariable("errors", $errors);
+				$this->view->render("preguntas", "preguntar");
+			}
+		} else{
+			$this->view->redirect("preguntas", "index");
+		}
+        
       }else{
           $this->view->render("preguntas", "preguntar");
       }

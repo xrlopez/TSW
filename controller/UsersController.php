@@ -40,9 +40,9 @@ class UsersController extends BaseController {
 
   public function login() {
 	$this->preguntasController->listados();
-    if (isset($_POST["username"])){ // reaching via HTTP Post...
-      //process login form    
-      if ($this->userMapper->isValidUser($_POST["username"],$_POST["passwd"])) {
+    if (isset($_POST["username"])){ 
+		$pass = md5($_POST["passwd"]);
+      if ($this->userMapper->isValidUser($_POST["username"],$pass)) {
 	       $_SESSION["currentuser"]=$_POST["username"];
 	       $this->view->redirect("preguntas", "index");
          
@@ -70,7 +70,8 @@ class UsersController extends BaseController {
       $user->setCorreo($_POST["correo"]);
 
       if ($_POST["pass"]==$_POST["repass"]) {
-        $user->setPassword($_POST["pass"]);
+		$pass = md5($_POST["pass"]);
+        $user->setPassword($pass);
       }
       else{
         $errors["pass"] = i18n("Passwords must be equal");
@@ -177,7 +178,8 @@ class UsersController extends BaseController {
     $user = $this->userMapper->findById($userid);
 
     $errors = array();
-    if($this->userMapper->isValidUser($_POST["usuario"],$_POST["passActual"])){
+	$pass = md5($_POST["passActual"]);
+    if($this->userMapper->isValidUser($_POST["usuario"],$pass)){
         if (isset($_POST["usuario"])) {  
           $user->setNombre($_POST["nombre"]);
       $user->setApellidos($_POST["apellidos"]);
@@ -185,7 +187,8 @@ class UsersController extends BaseController {
 
           if(!(strlen(trim($_POST["passNew"])) == 0)){
             if ($_POST["passNew"]==$_POST["passNueva"]) {
-              $user->setPassword($_POST["passNueva"]);
+              $passNew = md5($_POST["passNew"]);
+			  $user->setPassword($passNew);
             }
             else{
               $errors["pass"] = i18n("Passwords must be equal");
