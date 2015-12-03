@@ -70,13 +70,13 @@ class PreguntaMapper {
   
   public function preguntasMV(){
 	$stmt = $this->db->query("SELECT * FROM respuestas, preguntas WHERE preguntas.idPregunta = respuestas.idPregunta 
-								GROUP BY respuestas.idPregunta ORDER BY votosPositivos - votosNegativos DESC LIMIT 5");
+								GROUP BY respuestas.idPregunta ORDER BY votosPositivos DESC LIMIT 5");
     $pre = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $pre;
   }
   
   public function usuariosMP(){
-	$stmt = $this->db->query("SELECT COUNT(*) AS total, idPregunta, titulo, descripcion, fecha, idUsuario FROM preguntas GROUP BY idUsuario DESC LIMIT 5");
+	$stmt = $this->db->query("SELECT COUNT(*) AS total, idPregunta, titulo, descripcion, fecha, idUsuario FROM preguntas GROUP BY idUsuario ORDER BY total DESC LIMIT 5");
     $pre = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	return $pre;
   }

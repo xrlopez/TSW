@@ -19,8 +19,9 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 			<h2><?= i18n("Description")?></h2><textarea name="descripcion" rows="7" cols="50" required placeholder="<?= i18n("Describe your question")?>"></textarea>
 		</div>
 		<div class="botones_preguntar col-xs-12 col-sm-12 col-md-12">
-			<button type="submit" name="submit" id="login"><?= i18n("Ask")?></button>
-			<button type="submit" id="login"><?= i18n("Cancel")?></button>
+			<button type="submit" name="submit" class="cancel"><?= i18n("Ask")?></button>
+			<a class="cancel" href="index.php?controller=preguntas&amp;action=index"><?= i18n("Cancel")?></a>
 		</div>
 	</form>
+
 </div>

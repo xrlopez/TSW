@@ -64,10 +64,10 @@ class UsersController extends BaseController {
 	$user = new User();
 
 	if (isset($_POST["usuario"])){ 
-      $user->setUsername($_POST["usuario"]);
-      $user->setName($_POST["nombre"]);
-	  $user->setSurname($_POST["apellidos"]);
-      $user->setEmail($_POST["correo"]);
+      $user->setId($_POST["usuario"]);
+      $user->setNombre($_POST["nombre"]);
+	  $user->setApellidos($_POST["apellidos"]);
+      $user->setCorreo($_POST["correo"]);
 
       if ($_POST["pass"]==$_POST["repass"]) {
         $user->setPassword($_POST["pass"]);
@@ -86,7 +86,6 @@ class UsersController extends BaseController {
 	          $this->view->setFlash(i18n("Registered user"));
 	          $this->view->redirect("users", "login");
       } else {
-        $errors = array();
         $errors["usuario"] = i18n("User already exists");
     	  $this->view->setVariable("errors", $errors);
     	}

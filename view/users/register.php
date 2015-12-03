@@ -12,10 +12,12 @@
 		<div class="registrarse">
 			<h2><?= i18n("Username")?></h2><input type="text" name="usuario" id="usuario" required />
 			<?= isset($errors["usuario"])?$errors["usuario"]:"" ?>
+			<?= isset($errors["username"])?$errors["username"]:"" ?>
 			<h2><?= i18n("Name")?></h2><input type="text" name="nombre" id="nombre" required/>
 			<h2><?= i18n("Last name")?></h2><input type="text" name="apellidos" id="apellidos" required/>
 			<h2><?= i18n("Email")?></h2><input type="email" name="correo" id="correo" required/>
 			<h2><?= i18n("Password")?></h2><input type="password" name="pass" id="pass" required/><?= isset($errors["pass"])?$errors["pass"]:"" ?>
+			<?= isset($errors["passwd"])?$errors["passwd"]:"" ?>
 			<h2><?= i18n("Confirm password")?></h2><input type="password" name="repass" id="repass" required/>
 		</div>
 		<div class="botones">

@@ -11,7 +11,6 @@
  $pregFin = $view->getVariable("fin");
  $pregInicio = $view->getVariable("inicio");
  $paginas = ceil($numPreguntas/5);
- $preguntas = $view->getVariable("preguntas");
  
  $view->setVariable("title", "Preguntas");
  
@@ -20,13 +19,11 @@
 	<div class="preguntas">
 		<div class="pregunta row">
 			<div class="usuario col-xs-6 col-sm-6 col-md-8">
-				<a href="#">
 					<h1><img class="perfilP" src="images/perfil.png"><?= $pregunta->getUsuario() ?></h1>
-				</a>
 			</div>
 			<div class="respuestas col-xs-6 col-sm-6 col-md-4">
 					<h2><?= $pregunta->getnumRespuestas()?></h2>
-					<h2><?= i18n("Answer")?></h2>
+					<h2><?= i18n("Answers")?></h2>
 			</div>
 			<div class="texto col-xs-12 col-sm-12 col-md-12">
 				<a href="index.php?controller=preguntas&amp;action=pregunta&amp;id=<?= $pregunta->getId() ?>"><h2><?= $pregunta->getDescripcion() ?></h2></a>

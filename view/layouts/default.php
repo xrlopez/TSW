@@ -34,7 +34,7 @@
 					  <li>
 						<a class="home" href="index.php"><img src="images/home.png" alt="logo" height="25" width="25"></a>
 					  </li>
-					  <li >
+					  <li>
 						<form action="index.php?controller=users&amp;action=buscarInfo" method="post" >
 							<input type="search" id="busqueda" name="busqueda" size="30" placeholder="<?= i18n("Search")?>">
 							<button type="submit" name="submit" id="buttonBusqueda"><?= i18n("Search")?></button>
@@ -43,7 +43,8 @@
 					  <li class="option"><a href="index.php?controller=preguntas&amp;action=preguntar"><?= i18n("Ask")?></a></li>
 					  <li class="option"><a href="index.php?controller=users&amp;action=login"><?= i18n("Log in")?></a></li>
 					  <li class="flag"><a href="index.php?controller=language&amp;action=change&amp;lang=en"><img src="images/england_flag.png" alt="logo" ></a>
-					  	<a href="index.php?controller=language&amp;action=change&amp;lang=es"><img src="images/bandera_espana.png" alt="logo"></a></li>
+					  	<a href="index.php?controller=language&amp;action=change&amp;lang=es"><img src="images/bandera_espana.png" alt="logo"></a>
+					  	<a href="index.php?controller=language&amp;action=change&amp;lang=gal"><img src="images/banderaGalicia.png" alt="logo"></a></li>
 					</ul> 
 				<?php }else{ ?>
 					<ul id="menu">
@@ -59,8 +60,9 @@
 					  <li class="option"><a href="index.php?controller=preguntas&amp;action=preguntar"><?= i18n("Ask")?></a></li>
 					  <li class="option"><a href="index.php?controller=users&amp;action=perfil"><?= i18n("Profile")?></a></li>
 					  <li class="option"><a href="index.php?controller=users&amp;action=logout"><?= i18n("Log out")?></a></li>
-					  <li class="flag"><a href="index.php?controller=language&amp;action=change&amp;lang=en"><img src="images/england_flag.png" alt="logo" ></a></li>
-					  <li class="flag"><a href="index.php?controller=language&amp;action=change&amp;lang=es"><img src="images/bandera_espana.png" alt="logo"></a></li>
+					  <li class="flag"><a href="index.php?controller=language&amp;action=change&amp;lang=en"><img src="images/england_flag.png" alt="logo" ></a>
+						<a href="index.php?controller=language&amp;action=change&amp;lang=es"><img src="images/bandera_espana.png" alt="logo"></a>
+					  	<a href="index.php?controller=language&amp;action=change&amp;lang=gal"><img src="images/banderaGalicia.png" alt="logo"></a></li>
 					</ul> 
 				<?php } ?>	
 			</div>	
