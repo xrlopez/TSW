@@ -69,7 +69,7 @@ class PreguntasController extends BaseController {
       $numPage = $_GET['page'];
 
       $inicio = $numPage*5-4;
-      $preguntas = $this->preguntaMapper->getPreguntas($inicio-1,5);
+      $preguntas = $this->preguntaMapper->getPreguntas($inicio,5);
       $numPreguntas = $this->preguntaMapper->getNumPreguntas();
       $fin = $numPage*5;
       if ($fin > $numPreguntas['num'] ) {
@@ -107,7 +107,7 @@ class PreguntasController extends BaseController {
 				$pregunta->setTitulo($_POST["pregunta"]);
 				$pregunta->setDescripcion($_POST["descripcion"]);
 				$time = time();
-				$pregunta->setFecha(date("Y-m-d", $time));
+				$pregunta->setFecha(date("Y-m-d H:i:s", $time));
 				$pregunta->setUsuario($_POST["usuario"]);
 				$this->preguntaMapper->save($pregunta);
 				$this->view->redirect("preguntas", "index");

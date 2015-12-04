@@ -19,7 +19,7 @@ CREATE TABLE preguntas(
 	idPregunta INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	titulo VARCHAR(100) NOT NULL,
 	descripcion CHAR(200) NOT NULL,
-	fecha DATE NOT NULL,
+	fecha DATETIME NOT NULL,
 	idUsuario VARCHAR(15) NOT NULL,
 	CONSTRAINT FK_usuarios_preguntas FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE	
 );
@@ -44,11 +44,11 @@ INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `correo`, `password`
 ('victor', 'Victor', 'Rodriguez', 'victor@gmail.co', 'ffc150a160d37e92012c196b6af4160d');
 
 INSERT INTO `preguntas` (`idPregunta`, `titulo`, `descripcion`, `fecha`, `idUsuario`) VALUES
-(1, '¿Como puedo aprender a programar?', 'Necesito aprender a programar en Java', '2015-12-03', 'alicia'),
-(2, '¿Que venenos no son detectados en una autopsia?', 'Me gustaría saber que venenos no son detectados y como conseguirlos', '2015-12-03', 'alicia'),
-(3, '¿El café es dañino para la salud?', 'He leído que el café puede ser muy dañino.', '2015-12-03', 'javier'),
-(4, '¿Por qué el ventilador del portátil se ensucia?', '¿Es porque le entra polvo?', '2015-12-03', 'javier'),
-(5, '¿Como se llama la fobia a las sierras eléctricas?', 'Es urgente', '2015-12-03', 'javier'),
-(6, '¿Por que el sol aclara el pelo y oscurece la piel?', 'Necesito una respuesta rápido.', '2015-12-03', 'luisa'),
-(7, '¿Por qué no hay comida para gatos con sabor a ratón?', 'Mi gato lo necesita', '2015-12-03', 'monica'),
-(8, '¿Por qué se esterilizan las agujas para las inyecciones letales?', 'No logro comprenderlo', '2015-12-03', 'ruben');
+(1, '¿Como puedo aprender a programar?', 'Necesito aprender a programar en Java', '2015-12-03 13:00:00', 'alicia'),
+(2, '¿Que venenos no son detectados en una autopsia?', 'Me gustaría saber que venenos no son detectados y como conseguirlos', '2015-12-03 14:00:00', 'alicia'),
+(3, '¿El café es dañino para la salud?', 'He leído que el café puede ser muy dañino.', '2015-12-03 15:00:00', 'javier'),
+(4, '¿Por qué el ventilador del portátil se ensucia?', '¿Es porque le entra polvo?', '2015-12-03 16:00:00', 'javier'),
+(5, '¿Como se llama la fobia a las sierras eléctricas?', 'Es urgente', '2015-12-03 17:00:00', 'javier'),
+(6, '¿Por que el sol aclara el pelo y oscurece la piel?', 'Necesito una respuesta rápido.', '2015-12-03 18:00:00', 'luisa'),
+(7, '¿Por qué no hay comida para gatos con sabor a ratón?', 'Mi gato lo necesita', '2015-12-03 19:00:00', 'monica'),
+(8, '¿Por qué se esterilizan las agujas para las inyecciones letales?', 'No logro comprenderlo', '2015-12-03 20:00:00', 'ruben');
