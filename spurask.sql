@@ -35,6 +35,15 @@ CREATE TABLE respuestas(
 	CONSTRAINT FK_preguntas_respuestas FOREIGN KEY  (idPregunta) REFERENCES preguntas(idPregunta) ON DELETE CASCADE
 );
 
+CREATE TABLE votos(
+	idRespuesta INT NOT NULL,
+	idUsuario VARCHAR(15) NOT NULL,
+	votos INT NOT NULL,
+	PRIMARY KEY(idRespuesta,idUsuario);
+	CONSTRAINT FK_usuarios_votos FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE,	
+	CONSTRAINT FK_preguntas_votos FOREIGN KEY  (idRespuesta) REFERENCES respuestas(idRespuesta) ON DELETE CASCADE
+);
+
 INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `correo`, `password`) VALUES
 ('alicia', 'Alicia', 'López', 'alicia@gmail.co', 'e94ef563867e9c9df3fcc999bdb045f5'),
 ('javier', 'Javier', 'Pérez', 'javier@gmail.co', '3c9c03d6008a5adf42c2a55dd4a1a9f2'),

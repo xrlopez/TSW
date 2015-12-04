@@ -22,7 +22,8 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 		</div>
 		<div class="textoR col-xs-12 col-sm-12 col-md-12">
 			<h2><?=$pregunta->getDescripcion()?></h2>
-			<h4><?=$pregunta->getFecha()?></h4>
+			<h4><?php $date = new DateTime($pregunta->getFecha());
+						echo $date->format('Y-m-d');?></h4>
 		</div>
 	</div>
 	
@@ -54,6 +55,7 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 				<form id="form-aceptar" action="index.php?controller=respuestas&amp;action=votar" method="post" >
 					<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>
 					<input type="hidden" name="respuesta" value="<?=$respuesta->getId()?>"/>
+					<input type="hidden" name="usuario" value="<?=$currentuser?>"/>
 					<button type="submit" class="votar" name="positivo"><?=$respuesta->getPositivos()?> <img src="images/like.png"/></button>
 					<button type="submit" class="votar" name="negativo"><?=$respuesta->getNegativos()?><img src="images/nolike.png"/></button>
 				</form>

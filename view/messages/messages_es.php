@@ -49,6 +49,8 @@
     "Username must be at least 5 characters length" => "El nombre de usuario debe tener al menos 5 caracteres",
     "Password must be at least 5 characters length" => "La contraseña debe tener al menos 5 caracteres",
     "Top users" => "Usuarios que más preguntan",
-	"You can not ask with empty fields" => "No puedes preguntar con campos vacíos"
+	"You can not ask with empty fields" => "No puedes preguntar con campos vacíos",
+    "You have voted negatively" => "Ya has votado negativamente",
+    "You have voted positively" => "Ya has votado positivamente"
   )
 ?>

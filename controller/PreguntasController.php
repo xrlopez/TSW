@@ -69,7 +69,7 @@ class PreguntasController extends BaseController {
       $numPage = $_GET['page'];
 
       $inicio = $numPage*5-4;
-      $preguntas = $this->preguntaMapper->getPreguntas($inicio,5);
+      $preguntas = $this->preguntaMapper->getPreguntas($inicio-1,5);
       $numPreguntas = $this->preguntaMapper->getNumPreguntas();
       $fin = $numPage*5;
       if ($fin > $numPreguntas['num'] ) {

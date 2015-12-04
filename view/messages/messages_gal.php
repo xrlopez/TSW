@@ -49,6 +49,8 @@
     "Username must be at least 5 characters length" => "O nome de usuario debe ter polo menos 5 caracteres",
     "Password must be at least 5 characters length" => "O contrasinal debe ter polo menos 5 caracteres",
     "Top users" => "Usuarios que mais preguntan",
-	"You can not ask with empty fields" => "Non podes preguntar con campos vacíos"
+	"You can not ask with empty fields" => "Non podes preguntar con campos vacíos",
+    "You have voted negatively" => "Xa votaches negativamente",
+    "You have voted positively" => "Xa votaches positivamente"
   )
 ?>
