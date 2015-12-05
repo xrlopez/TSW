@@ -26,7 +26,8 @@
 			</div>
 			<div class="texto col-xs-12 col-sm-12 col-md-12">
 				<a href="index.php?controller=preguntas&amp;action=pregunta&amp;id=<?= $pregunta->getId() ?>"><h2><?= $pregunta->getDescripcion() ?></h2></a>
-				<h3><?= $pregunta->getFecha() ?></h3>
+				<h3><?php $date = new DateTime($pregunta->getFecha());
+					echo $date->format('Y-m-d');?></h3>
 			</div>
 		</div>
 	</div>
