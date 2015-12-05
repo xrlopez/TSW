@@ -60,4 +60,27 @@ INSERT INTO `preguntas` (`idPregunta`, `titulo`, `descripcion`, `fecha`, `idUsua
 (5, '¿Como se llama la fobia a las sierras eléctricas?', 'Es urgente', '2015-12-03 17:00:00', 'javier'),
 (6, '¿Por que el sol aclara el pelo y oscurece la piel?', 'Necesito una respuesta rápido.', '2015-12-03 18:00:00', 'luisa'),
 (7, '¿Por qué no hay comida para gatos con sabor a ratón?', 'Mi gato lo necesita', '2015-12-03 19:00:00', 'monica'),
-(8, '¿Por qué se esterilizan las agujas para las inyecciones letales?', 'No logro comprenderlo', '2015-12-03 20:00:00', 'ruben');
+(8, '¿Por qué se esterilizan las agujas para las inyecciones letales?', 'No logro comprenderlo', '2015-12-03 20:00:00', 'ruben'),
+(9, '¿Alguien sabe de que tipo era el armario de Narnia?', 'El otro día vi la película y tengo ganas de verlo en persona', '2015-12-04 16:20:00', 'luisa'),
+(10, '¿Cómo se llaman los fans de Metallica?', 'Discutiendo con mi hermano surgió la pregunta', '2015-12-04 16:40:00', 'ruben'),
+(11, '¿Cómo metió Noé todos los animales en el arca?', 'Necesito saber como lo hizo', '2015-12-04 17:02:55', 'victor'),
+(12, '¿Quien mató al mar muerto?', '¿Por qué está tan salado?', '2015-12-04 17:14:37', 'monica'),
+(13, '¿Es ilegal hacer viajes en el tiempo?', 'Me gustaría realizar viajes en el tiempo pero quiero estar informado', '2015-12-04 17:23:56', 'javier'),
+(14, '¿Dónde se puede comprar felicidad embotellada?', 'He ido a un montón de sitios pero no la encuentro', '2015-12-04 17:27:47', 'luisa'),
+(15, '¿Como sigue el trabalenguas?', 'Tres tristes tigres comen trigo en un...', '2015-12-04 17:32:24', 'alicia');
+
+INSERT INTO `respuestas` (`idRespuesta`, `idPregunta`, `descripcion`, `votosPositivos`, `votosNegativos`, `idUsuario`) VALUES
+(1, 5, 'Sentido común', 0, 0, 'ruben'),
+(2, 1, 'Existen muchas páginas en internet con tutoriales para cualquier lenguaje de programación.', 0, 0, 'luisa'),
+(3, 3, 'Si esta muy caliente te puedes quemar', 0, 0, 'luisa'),
+(4, 2, 'Se consiguen en el mercado negro', 0, 0, 'ruben'),
+(5, 1, 'Para cualquier duda stackoverflow', 0, 0, 'monica'),
+(6, 3, 'Si tomas muchos no duermes bien', 0, 0, 'javier'),
+(7, 9, 'Es de tipo mágico', 0, 0, 'ruben'),
+(8, 10, 'No se son muchos.\r\nDepende de como los hayan llamado sus padres', 0, 0, 'ruben'),
+(9, 11, 'Los comprimió con winrar', 0, 0, 'monica'),
+(10, 13, 'Solo si los haces con exceso de valocidad, en estado de ebriedad o realizando un salto cuántico por la derecha', 0, 0, 'luisa'),
+(11, 14, 'Sí que hay. En los supermercados puedes comprar vodka, tequila...', 0, 0, 'alicia'),
+(12, 15, 'Trigal', 0, 0, 'ruben'),
+(13, 15, 'En ningún lado. Los tigres comen carne', 0, 0, 'alicia');
+
