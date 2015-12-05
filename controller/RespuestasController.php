@@ -58,21 +58,20 @@ class RespuestasController extends BaseController {
 		$this->preguntasController->listados();
   		$usuario = $this->userMapper->findById($_POST["usuario"]);
   		$respuesta = $this->respuestaMapper->findById($_POST["respuesta"]);
-  		$voto = $this->respuestaMapper->getVotacionUser($usuario->getId(),$respuesta->getId());
+  		$voto = $this->respuestaMapper->getVotacionUser($_POST["usuario"],$_POST["respuesta"]);
 	  	if(isset($_POST["positivo"])){
-	  		if($voto==0){
+	  		if($voto=="negativo"){
 	  			$this->respuestaMapper->modVotacion($respuesta,$usuario,$voto,"positivo");
-	  		}else if($voto==1){
+	  		}else if($voto=="positivo"){
 			      $this->view->setFlash(i18n("You have voted positively"));
 	  		}else{
 	  			$this->respuestaMapper->votarPositivo($respuesta,$usuario);
-
 	  		}
 
 	  	}else if(isset($_POST["negativo"])){
-	  		if($voto==0){
+	  		if($voto=="negativo"){
 			      $this->view->setFlash(i18n("You have voted negatively"));
-	  		}else if($voto==1){
+	  		}else if($voto=="positivo"){
 	  			$this->respuestaMapper->modVotacion($respuesta,$usuario,$voto,"negativo");
 	  		}else{
 	  			$this->respuestaMapper->votarNegativo($respuesta,$usuario);	
@@ -83,7 +82,6 @@ class RespuestasController extends BaseController {
 		$idp =$_POST["pregunta"];
 	    $preg = $this->preguntaMapper->findById($idp);
 	    $resp = $this->respuestaMapper->findAllByPregunta($idp);
-	    $this->view->setVariable("usuario", $usuario);
 	    $this->view->setVariable("pregunta", $preg);
 	    $this->view->setVariable("respuestas",$resp);
 	    $this->view->render("preguntas", "pregunta");

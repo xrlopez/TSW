@@ -51,40 +51,40 @@ class RespuestaMapper {
   }
 
   public function getVotacionUser($idUsuario,$idRespuesta){
-    $stmt = $this->db->prepare("SELECT  * FROM votos WHERE votos.idRespuesta=? and votos.idUsuario=?");
-    $stmt->execute(array($idRespuesta,$idUsuario));
+    $stmt = $this->db->prepare("SELECT  * FROM votos WHERE idUsuario=? and idRespuesta=?");
+    $stmt->execute(array($idUsuario, $idRespuesta));
     $resp_db = $stmt->fetch(PDO::FETCH_ASSOC);
     if($resp_db != null) {
-        return $resp_db["votos"];
+        return $resp_db["voto"];
     } else {
         return NULL;
       } 
   }
 
   public function votarPositivo($respuesta,$usuario){
-    $stmt = $this->db->prepare("INSERT INTO votos VALUES(?,?,1)");
-    $stmt->execute(array($respuesta->getId(),$usuario->getId())); 
+    $stmt = $this->db->prepare("INSERT INTO votos (idRespuesta, idUsuario, voto)  VALUES(?,?,?)");
+    $stmt->execute(array($respuesta->getId(),$usuario->getId(),"positivo")); 
     $stmt = $this->db->prepare("UPDATE respuestas set votosPositivos=(votosPositivos + 1) where idRespuesta=?");
     $stmt->execute(array($respuesta->getId())); 
   }
 
   public function votarNegativo($respuesta,$usuario){
-    $stmt = $this->db->prepare("INSERT INTO votos VALUES(?,?,0)");
-    $stmt->execute(array($respuesta->getId(),$usuario->getId())); 
+    $stmt = $this->db->prepare("INSERT INTO votos VALUES(?,?,?)");
+    $stmt->execute(array($respuesta->getId(),$usuario->getId(),"negativo")); 
     $stmt = $this->db->prepare("UPDATE respuestas set votosNegativos=(votosNegativos + 1) where idRespuesta=?");
     $stmt->execute(array($respuesta->getId())); 
   }
 
   public function modVotacion($respuesta,$usuario,$votos,$tipo){
-      if($tipo=="positivo" && $votos==0){
-          $stmt = $this->db->prepare("UPDATE votos set votos=1 where idRespuesta=? and idUsuario=?");
-          $stmt->execute(array($respuesta->getId(),$usuario->getId())); 
+      if($tipo=="positivo" && $votos=="negativo"){
+          $stmt = $this->db->prepare("UPDATE votos set voto=? where idRespuesta=? and idUsuario=?");
+          $stmt->execute(array("positivo",$respuesta->getId(),$usuario->getId())); 
           $stmt = $this->db->prepare("UPDATE respuestas set votosNegativos=(votosNegativos - 1), votosPositivos=(votosPositivos+1) where idRespuesta=?");
           $stmt->execute(array($respuesta->getId())); 
 
-      }else if($tipo=="negativo" && $votos==1){
-          $stmt = $this->db->prepare("UPDATE votos set votos=0 where idRespuesta=? and idUsuario=?");
-          $stmt->execute(array($respuesta->getId(),$usuario->getId())); 
+      }else if($tipo=="negativo" && $votos=="positivo"){
+          $stmt = $this->db->prepare("UPDATE votos set voto=? where idRespuesta=? and idUsuario=?");
+          $stmt->execute(array("negativo",$respuesta->getId(),$usuario->getId())); 
           $stmt = $this->db->prepare("UPDATE respuestas set votosNegativos=(votosNegativos + 1), votosPositivos=(votosPositivos-1) where idRespuesta=?");
           $stmt->execute(array($respuesta->getId())); 
 

@@ -124,7 +124,7 @@ class PreguntasController extends BaseController {
           $this->view->render("preguntas", "preguntar");
       }
     }else{
-      $this->view->setFlash(i18n("To ask you have login"));
+      $this->view->setFlash(sprintf(i18n("To ask you have login")));
       $this->view->render("users", "login");    
     }
   }
