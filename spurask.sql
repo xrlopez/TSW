@@ -39,7 +39,7 @@ CREATE TABLE votos(
 	idRespuesta INT NOT NULL,
 	idUsuario VARCHAR(15) NOT NULL,
 	votos INT NOT NULL,
-	PRIMARY KEY(idRespuesta,idUsuario);
+	PRIMARY KEY(idRespuesta,idUsuario),
 	CONSTRAINT FK_usuarios_votos FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE,	
 	CONSTRAINT FK_preguntas_votos FOREIGN KEY  (idRespuesta) REFERENCES respuestas(idRespuesta) ON DELETE CASCADE
 );
