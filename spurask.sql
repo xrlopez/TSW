@@ -38,7 +38,11 @@ CREATE TABLE respuestas(
 CREATE TABLE votos(
 	idRespuesta INT NOT NULL,
 	idUsuario VARCHAR(15) NOT NULL,
+<<<<<<< HEAD
 	voto ENUM('positivo','negativo') NOT NULL,
+=======
+	votos INT NOT NULL,
+>>>>>>> origin/master
 	PRIMARY KEY(idRespuesta,idUsuario),
 	CONSTRAINT FK_usuarios_votos FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE,	
 	CONSTRAINT FK_preguntas_votos FOREIGN KEY  (idRespuesta) REFERENCES respuestas(idRespuesta) ON DELETE CASCADE
