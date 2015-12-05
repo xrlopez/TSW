@@ -16,7 +16,7 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 <div class="preguntas">
 	<div class="question row">
 		<div class="usuario col-xs-12 col-sm-12 col-md-12">
-			<a href="#"><h1><img class="perfilP" src="images/perfil.png"><?=$pregunta->getUsuario()?></h1></a>
+			<h1><img class="perfilP" src="images/perfil.png"><?=$pregunta->getUsuario()?></h1>
 
 			<h2><?=$pregunta->getTitulo()?></h2>
 		</div>
