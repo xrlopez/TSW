@@ -41,7 +41,7 @@ class RespuestasController extends BaseController {
 			$respuesta = new Respuesta();
 			$respuesta->setPregunta($_POST["pregunta"]);
 			$respuesta->setDescripcion($_POST["coment"]);
-			$respuesta->setUsuario($_POST["usuario"]);
+			$respuesta->setUsuario($_SESSION["currentuser"]);
 			$this->respuestaMapper->save($respuesta);
 		}
 		
@@ -56,9 +56,9 @@ class RespuestasController extends BaseController {
 
   	public function votar(){
 		$this->preguntasController->listados();
-  		$usuario = $this->userMapper->findById($_POST["usuario"]);
+  		$usuario = $this->userMapper->findById($_SESSION["currentuser"]);
   		$respuesta = $this->respuestaMapper->findById($_POST["respuesta"]);
-  		$voto = $this->respuestaMapper->getVotacionUser($_POST["usuario"],$_POST["respuesta"]);
+  		$voto = $this->respuestaMapper->getVotacionUser($_SESSION["currentuser"],$_POST["respuesta"]);
 	  	if(isset($_POST["positivo"])){
 	  		if($voto=="negativo"){
 	  			$this->respuestaMapper->modVotacion($respuesta,$usuario,$voto,"positivo");

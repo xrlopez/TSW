@@ -108,7 +108,7 @@ class PreguntasController extends BaseController {
 				$pregunta->setDescripcion($_POST["descripcion"]);
 				$time = time();
 				$pregunta->setFecha(date("Y-m-d H:i:s", $time));
-				$pregunta->setUsuario($_POST["usuario"]);
+				$pregunta->setUsuario($_SESSION["currentuser"]);
 				$this->preguntaMapper->save($pregunta);
 				$this->view->redirect("preguntas", "index");
 			} else{
