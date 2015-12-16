@@ -102,8 +102,8 @@ class UsersController extends BaseController {
 
   public function buscarInfo(){
 	$this->preguntasController->listados();
-    if(isset($_POST['busqueda'])){
-      $busqueda = $_POST['busqueda'];
+    if(isset($_GET['busqueda'])){
+      $busqueda = $_GET['busqueda'];
       $result = $this->userMapper->buscarInfo($busqueda);
       $this->view->setVariable("informacion",$result);
       $this->view->render("users","info");
