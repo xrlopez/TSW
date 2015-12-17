@@ -36,8 +36,8 @@
 					  </li>
 					  <li>
 						<form action="index.php" method="get" >
-							<input type="hidden" name="controller" value="users"/>
-							<input type="hidden" name="action" value="buscarInfo"/>
+							<input type="hidden" name="controller" value="users">
+							<input type="hidden" name="action" value="buscarInfo">
 							<input type="search" id="busqueda" name="busqueda" size="30" placeholder="<?= i18n("Search")?>">
 							<button type="submit" name="submit" id="buttonBusqueda"><?= i18n("Search")?></button>
 						</form>
@@ -54,9 +54,9 @@
 						<a class="home" href="index.php"><img src="images/home.png" alt="logo" height="25" width="25"></a>
 					  </li>
 					  <li >
-						<form id="form-aceptar" action="index.php" method="get" >
-							<input type="hidden" name="controller" value="users"/>
-							<input type="hidden" name="action" value="buscarInfo"/>
+						<form action="index.php" method="get" >
+							<input type="hidden" name="controller" value="users">
+							<input type="hidden" name="action" value="buscarInfo">
 							<input type="search" id="busqueda" name="busqueda" size="30" placeholder="<?= i18n("Search")?>">
 							<button type="submit" name="submit" id="buttonBusqueda"><?= i18n("Search")?></button>
 						</form>
