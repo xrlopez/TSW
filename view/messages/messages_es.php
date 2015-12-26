@@ -50,6 +50,12 @@
     "Password must be at least 5 characters length" => "La contraseña debe tener al menos 5 caracteres",
     "Top users" => "Usuarios que más preguntan",
 	"You can not ask with empty fields" => "No puedes preguntar con campos vacíos",
-    "Your vote has been eliminated" => "Tu voto ha sido eliminado"
+    "Your vote has been eliminated" => "Tu voto ha sido eliminado",
+    "Categories" => "Categorias",
+    "Computing" => "Informatica",
+    "Leisure" => "Ocio",
+    "Health" => "Salud",
+    "Beauty" => "Belleza",
+    "Animals" => "Animales"
   )
 ?>

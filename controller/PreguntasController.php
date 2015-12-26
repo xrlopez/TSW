@@ -95,30 +95,36 @@ class PreguntasController extends BaseController {
     }
   }
 
-
+  public function categorias(){
+    $this->listados();
+    $this->view->render("preguntas", "categorias");
+  }
 
   public function preguntar(){
-	$this->listados();
+  $this->listados();
     if(isset($_SESSION["currentuser"])){
       if(isset($_POST["submit"])){
-		if($_POST["submit"]==i18n("Ask")){
-			$pregunta = new Pregunta();
-			if((strlen($_POST["pregunta"])>1) && (strlen($_POST["descripcion"])>1)){
-				$pregunta->setTitulo($_POST["pregunta"]);
-				$pregunta->setDescripcion($_POST["descripcion"]);
-				$time = time();
-				$pregunta->setFecha(date("Y-m-d H:i:s", $time));
-				$pregunta->setUsuario($_SESSION["currentuser"]);
-				$this->preguntaMapper->save($pregunta);
-				$this->view->redirect("preguntas", "index");
-			} else{
-				$errors["general"] = i18n("You can not ask with empty fields");
-				$this->view->setVariable("errors", $errors);
-				$this->view->render("preguntas", "preguntar");
-			}
-		} else{
-			$this->view->redirect("preguntas", "index");
-		}
+    if($_POST["submit"]==i18n("Ask")){
+      $pregunta = new Pregunta();
+      if((strlen($_POST["pregunta"])>1) && (strlen($_POST["descripcion"])>1)){
+        $pregunta->setTitulo($_POST["pregunta"]);
+        $pregunta->setDescripcion($_POST["descripcion"]);
+        $time = time();
+        $pregunta->setFecha(date("Y-m-d H:i:s", $time));
+        $pregunta->setUsuario($_SESSION["currentuser"]);
+        $preg = $this->preguntaMapper->save($pregunta);
+        if(isset($_POST["categorias"])) {
+            $this->preguntaMapper->categorizar($preg->getId(),$_POST["categorias"]);
+        }
+        $this->view->redirect("preguntas", "index");
+      } else{
+        $errors["general"] = i18n("You can not ask with empty fields");
+        $this->view->setVariable("errors", $errors);
+        $this->view->render("preguntas", "preguntar");
+      }
+    } else{
+      $this->view->redirect("preguntas", "index");
+    }
         
       }else{
           $this->view->render("preguntas", "preguntar");
@@ -159,5 +165,46 @@ class PreguntasController extends BaseController {
     }
   }
 
+  public function pregCatergorias(){
+    $this->listados();
+    $categoria = $_GET["categoria"];
+    $preguntas = $this->preguntaMapper->preguntasByCategoria($categoria);
+    $numPreguntas = $this->preguntaMapper->getNumPreguntasCat($categoria);
+
+    $this->view->setVariable("num_pagina", 1);
+    if (5 < $numPreguntas ) {
+      $fin = 5;
+    }else{
+      $fin = $numPreguntas;
+    }
+    $this->view->setVariable("inicio", 1);
+    $this->view->setVariable("fin", $fin);
+    $this->view->setVariable("preguntas", $preguntas);  
+    $this->view->setVariable("numPreguntas", $numPreguntas);
+    $this->view->setVariable("categoria",$categoria);
+    $this->view->render("preguntas", "pregCatergoria");
+  }
+
+  public function pageCat()
+    {
+    $this->listados();
+    $categoria=$_GET['categoria'];
+      $numPage = $_GET['page'];
+
+      $inicio = $numPage*5-4;
+      $preguntas = $this->preguntaMapper->preguntasByCategoria($categoria,$inicio-1,5);
+      $numPreguntas = $this->preguntaMapper->getNumPreguntasCat($categoria);
+      $fin = $numPage*5;
+      if ($fin > $numPreguntas['num'] ) {
+        $fin = $numPreguntas['num'];
+      }
+      $this->view->setVariable("inicio", $inicio);
+      $this->view->setVariable("fin", $fin);
+      $this->view->setVariable("num_pagina", $numPage);
+      $this->view->setVariable("numPreguntas", $numPreguntas);
+      $this->view->setVariable("preguntas", $preguntas);
+      $this->view->setVariable("categoria",$categoria);
+      $this->view->render("preguntas", "pregCatergoria");
+    }
   
 }

@@ -8,12 +8,33 @@
  $numPreguntas = $view->getVariable("numPreguntas");
  $numPagina = $view->getVariable("num_pagina");
  $preguntas = $view->getVariable("preguntas");
+ $categoria = $view->getVariable("categoria");
  $pregFin = $view->getVariable("fin");
  $pregInicio = $view->getVariable("inicio");
  $paginas = ceil($numPreguntas/5);
  
  $view->setVariable("title", "Preguntas");
  
+?>
+<?php
+	switch ($categoria) {
+		    case "informatica":?>
+				<h1 class="categorias"><?= i18n("Computing")?></h1><?php
+				break;
+			case "ocio":?>
+				<h1 class="categorias"><?= i18n("Leisure")?></h1><?php
+				break;
+			case "salud":?>
+				<h1 class="categorias"><?= i18n("Health")?></h1><?php
+				break;
+			case "belleza":?>
+				<h1 class="categorias"><?= i18n("Beauty")?></h1><?php
+				break;
+			case "animales":?>
+				<h1 class="categorias"><?= i18n("Animals")?></h1><?php
+				break;
+	}
+
 ?>
 <?php foreach ($preguntas as $pregunta): ?>
 	<div class="preguntas">
@@ -66,20 +87,20 @@
 		<?php if ($numPagina == 1 ) { ?>
 				<li class="optionPeqSin" title="anterior"><?= i18n("Previous")?></li>
 		<?php }else { ?>
-				<li class="optionPeq" title="anterior"><a href="index.php?controller=preguntas&amp;action=page&amp;page=<?= $numPagina-1 ?>"><?= i18n("Previous")?></a>
+				<li class="optionPeq" title="anterior"><a href="index.php?controller=preguntas&amp;action=pageCat&amp;page=<?= $numPagina-1 ?>&amp;categoria=<?=$categoria ?>"><?= i18n("Previous")?></a>
 		<?php } ?>
 		
 		<?php for ($i=1; $i < $paginas+1 ; $i++) { 
 				if ($i == $numPagina) { ?>
 					<li class="option_sele"><?php echo $i?></li>
 				<?php }else{ ?>
-					<li class="option"><a href="index.php?controller=preguntas&amp;action=page&amp;page=<?= $i ?>"><?php echo $i?></a></li>
+					<li class="option"><a href="index.php?controller=preguntas&amp;action=pageCat&amp;page=<?= $i ?>&amp;categoria=<?=$categoria ?>"><?php echo $i?></a></li>
 				<?php } ?>	
 		<?php } ?>
 		<?php if ($numPagina == $paginas ) { ?>
 				<li class="optionPeqSin" title="siguiente"><?= i18n("Following")?></li>
 		<?php }else { ?>
-				<li class="optionPeq" title="siguiente"><a href="index.php?controller=preguntas&amp;action=page&amp;page=<?= $numPagina+1 ?>"><?= i18n("Following")?></a>
+				<li class="optionPeq" title="siguiente"><a href="index.php?controller=preguntas&amp;action=pageCat&amp;page=<?= $numPagina+1 ?>&amp;categoria=<?=$categoria ?>"><?= i18n("Following")?></a>
 		<?php } ?>
 	</ul>
 </div>

@@ -14,6 +14,13 @@ class PreguntaMapper {
   public function save($pregunta) {
     $stmt = $this->db->prepare("INSERT INTO preguntas (titulo,descripcion,fecha,idUsuario) values (?,?,?,?)");
     $stmt->execute(array($pregunta->getTitulo(), $pregunta->getDescripcion(), $pregunta->getFecha(), $pregunta->getUsuario()));
+    $stmt2 = $this->db->query("SELECT * FROM preguntas ORDER BY idPregunta DESC LIMIT 1");
+    $pre = $stmt2->fetch(PDO::FETCH_ASSOC);
+    if($pre != null) {
+      return new Pregunta($pre["idPregunta"], $pre["titulo"], $pre["descripcion"], $pre["fecha"], $pre["idUsuario"]);
+    }else{
+      return null;
+    }
   }
 
   public function findAll(){  
@@ -92,6 +99,47 @@ class PreguntaMapper {
 		array_push($pregs, new Pregunta($preg["idPregunta"], $preg["titulo"], $preg["descripcion"], $preg["fecha"], $preg["idUsuario"]));
 	}
 	return $pregs;  
+  }
+
+  public function preguntasByCategoria($categoria, $inicio = 0, $limite = 5){
+      $stmt = $this->db->prepare("SELECT * FROM preguntas WHERE idPregunta IN (SELECT idPregunta FROM categorias WHERE nombre=?) limit ?,?");
+      $stmt->execute(array($categoria,$inicio,$limite));
+        $pre = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
+      $pregs = array();
+        
+      foreach($pre as $preg){
+        array_push($pregs, new Pregunta($preg["idPregunta"], $preg["titulo"], $preg["descripcion"], $preg["fecha"], $preg["idUsuario"]));
+      }
+      return $pregs; 
+  }
+
+  public function getNumPreguntasCat($categoria){
+    $stmt = $this->db->prepare('SELECT count(*) as num FROM preguntas WHERE idPregunta IN (SELECT idPregunta FROM categorias WHERE nombre=?)');
+    $stmt->execute(array($categoria));
+    $num_pregs = $stmt->fetch(PDO::FETCH_ASSOC);
+    $num=$num_pregs["num"];
+    return $num;
+  }
+
+  public function getCategoriasByPreg($idPreg){
+    $stmt = $this->db->prepare("SELECT * FROM categorias WHERE idPregunta=?");
+      $stmt->execute(array($idPreg));
+        $catBd = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      
+      $cat = array();
+        
+      foreach($catBd as $categoria){
+        array_push($cat, $categoria["nombre"]);
+      }
+      return $cat;
+  }
+
+  public function categorizar($pregunta,$categorias){
+    foreach ($categorias as $categoria) {
+      $stmt = $this->db->prepare("INSERT INTO categorias VALUES(?,?)");
+      $stmt->execute(array($categoria, $pregunta));
+    }
   }
     
 }

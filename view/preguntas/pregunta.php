@@ -25,6 +25,31 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 			<h4><?php $date = new DateTime($pregunta->getFecha());
 						echo $date->format('Y-m-d');?></h4>
 		</div>
+		<div class="texto col-xs-12 col-sm-12 col-md-12">
+				<?php if($pregunta->getCategoria()!=NULL) { foreach ($pregunta->getCategoria() as $categoria):
+					switch ($categoria) {
+						    case "informatica":?>
+								<a href="index.php?controller=preguntas&amp;action=pregCatergorias&amp;categoria=informatica" class="cat">
+									<?= i18n("Computing")?></a><?php
+								break;
+							case "ocio":?>
+								<a href="index.php?controller=preguntas&amp;action=pregCatergorias&amp;categoria=ocio" class="cat">
+									<?= i18n("Leisure")?></a><?php
+								break;
+							case "salud":?>
+								<a href="index.php?controller=preguntas&amp;action=pregCatergorias&amp;categoria=salud" class="cat">
+									<?= i18n("Health")?></a><?php
+								break;
+							case "belleza":?>
+								<a href="index.php?controller=preguntas&amp;action=pregCatergorias&amp;categoria=belleza" class="cat"><?= i18n("Beauty")?></a><?php
+								break;
+							case "animales":?>
+								<a href="index.php?controller=preguntas&amp;action=pregCatergorias&amp;categoria=animales" class="cat">
+									<?= i18n("Animals")?></a><?php
+								break;
+					}
+				 endforeach; }?>
+			</div>
 	</div>
 	
 </div>

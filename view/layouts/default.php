@@ -42,6 +42,7 @@
 							<button type="submit" name="submit" id="buttonBusqueda"><?= i18n("Search")?></button>
 						</form>
 					  </li>
+					  <li class="option"><a href="index.php?controller=preguntas&amp;action=categorias"><?= i18n("Categories")?></a></li>
 					  <li class="option"><a href="index.php?controller=preguntas&amp;action=preguntar"><?= i18n("Ask")?></a></li>
 					  <li class="option"><a href="index.php?controller=users&amp;action=login"><?= i18n("Log in")?></a></li>
 					  <li class="flag"><a href="index.php?controller=language&amp;action=change&amp;lang=en"><img src="images/england_flag.png" alt="logo" ></a>
@@ -61,6 +62,7 @@
 							<button type="submit" name="submit" id="buttonBusqueda"><?= i18n("Search")?></button>
 						</form>
 					  </li>
+					  <li class="option"><a href="index.php?controller=preguntas&amp;action=categorias"><?= i18n("Categories")?></a></li>
 					  <li class="option"><a href="index.php?controller=preguntas&amp;action=preguntar"><?= i18n("Ask")?></a></li>
 					  <li class="option"><a href="index.php?controller=users&amp;action=perfil"><?= i18n("Profile")?></a></li>
 					  <li class="option"><a href="index.php?controller=users&amp;action=logout"><?= i18n("Log out")?></a></li>

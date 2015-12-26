@@ -2,6 +2,7 @@
 
 require_once(__DIR__."/../core/ValidationException.php");
 require_once(__DIR__."/../model/RespuestaMapper.php");
+require_once(__DIR__."/../model/PreguntaMapper.php");
 class Pregunta {
 
   private $idPregunta;
@@ -11,6 +12,7 @@ class Pregunta {
   private $idUsuario;
   private $numRespuestas;
   private $respuetaMapper;
+  private $categoria;
   
   public function __construct($idPregunta=NULL,$titulo=NULL,$descripcion=NULL,$fecha=NULL,$idUsuario=NULL) {
     $this->idPregunta = $idPregunta;
@@ -19,6 +21,8 @@ class Pregunta {
     $this->fecha = $fecha;
     $this->idUsuario =$idUsuario;
     $this->respuetaMapper = new RespuestaMapper();
+    $preguntaMapper = new PreguntaMapper();
+    $this->categoria = $preguntaMapper->getCategoriasByPreg($idPregunta);
     $this->numRespuestas = count($this->respuetaMapper->findAllByPregunta($idPregunta));
   }
 
@@ -28,6 +32,14 @@ class Pregunta {
 
   public function setId($idPregunta){
     $this->idPregunta=$idPregunta;
+  }
+
+  public function getCategoria(){
+    return $this->categoria;
+  }
+
+  public function setCategoria($categoria){
+    $this->categoria = $categoria;
   }
   
   public function getTitulo(){

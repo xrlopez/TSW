@@ -33,6 +33,23 @@ body{
 	padding-top: 5px;
 	text-align: right;
 }
+.categorias{
+	text-align: center;
+}
+
+div.categorias{
+	padding-top: 15px;
+	padding-bottom: 10px;
+	margin: 20px;
+	background-color: #748BA7;
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+div.categorias a{
+	color: black;
+}
 .sinRegistrar a{
 	color:black;
 }
@@ -75,6 +92,9 @@ ul#menu .home:hover{
 	color: black;
 }
 
+.cat,{
+	padding: 5px;
+}
 
 ul#menu li a{
     padding: 10px 20px;
