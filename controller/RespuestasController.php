@@ -63,14 +63,16 @@ class RespuestasController extends BaseController {
 	  		if($voto=="negativo"){
 	  			$this->respuestaMapper->modVotacion($respuesta,$usuario,$voto,"positivo");
 	  		}else if($voto=="positivo"){
-			      $this->view->setFlash(i18n("You have voted positively"));
+	  			$this->respuestaMapper->eliminarVoto($respuesta,$usuario,$voto);
+			    $this->view->setFlash(i18n("Your vote has been eliminated"));
 	  		}else{
 	  			$this->respuestaMapper->votarPositivo($respuesta,$usuario);
 	  		}
 
 	  	}else if(isset($_POST["negativo"])){
 	  		if($voto=="negativo"){
-			      $this->view->setFlash(i18n("You have voted negatively"));
+	  			$this->respuestaMapper->eliminarVoto($respuesta,$usuario,$voto);
+			    $this->view->setFlash(i18n("Your vote has been eliminated"));
 	  		}else if($voto=="positivo"){
 	  			$this->respuestaMapper->modVotacion($respuesta,$usuario,$voto,"negativo");
 	  		}else{

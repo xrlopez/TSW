@@ -75,6 +75,18 @@ class RespuestaMapper {
     $stmt->execute(array($respuesta->getId())); 
   }
 
+  public function eliminarVoto($respuesta,$usuario,$tipo){
+    $stmt = $this->db->prepare("DELETE FROM votos WHERE idRespuesta=? and idUsuario=?");
+    $stmt->execute(array($respuesta->getId(),$usuario->getId())); 
+    if($tipo=="negativo"){
+      $stmt = $this->db->prepare("UPDATE respuestas set votosNegativos=(votosNegativos - 1) where idRespuesta=?");
+      $stmt->execute(array($respuesta->getId())); 
+    }else if($tipo=="positivo"){
+      $stmt = $this->db->prepare("UPDATE respuestas set votosPositivos=(votosPositivos-1) where idRespuesta=?");
+      $stmt->execute(array($respuesta->getId())); 
+    }   
+  }
+
   public function modVotacion($respuesta,$usuario,$votos,$tipo){
       if($tipo=="positivo" && $votos=="negativo"){
           $stmt = $this->db->prepare("UPDATE votos set voto=? where idRespuesta=? and idUsuario=?");
