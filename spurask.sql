@@ -44,6 +44,13 @@ CREATE TABLE votos(
 	CONSTRAINT FK_preguntas_votos FOREIGN KEY  (idRespuesta) REFERENCES respuestas(idRespuesta) ON DELETE CASCADE
 );
 
+CREATE TABLE categorias(
+	nombre VARCHAR(30) NOT NULL,
+	IdPregunta INT(11) NOT NULL,
+	PRIMARY KEY(nombre,idPregunta),
+	CONSTRAINT FK_pregunta_categoria FOREIGN KEY  (idPregunta) REFERENCES preguntas(idPregunta) ON DELETE CASCADE
+);
+
 INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `correo`, `password`) VALUES
 ('alicia', 'Alicia', 'López', 'alicia@gmail.co', 'e94ef563867e9c9df3fcc999bdb045f5'),
 ('carlitos', 'Carlos', 'Alcantara', 'carlos@correo.c', '86c06093b9c9351bcea13ba73dcf9502'),
@@ -151,3 +158,22 @@ INSERT INTO `votos` (`idRespuesta`, `idUsuario`, `voto`) VALUES
 (23, 'luisa', 'positivo'),
 (23, 'ruben', 'positivo'),
 (24, 'ruben', 'positivo');
+
+INSERT INTO `categorias` (`nombre`, `idPregunta`) VALUES
+('animales', 7),
+('animales', 11),
+('belleza', 6),
+('belleza', 14),
+('informatica', 1),
+('informatica', 4),
+('ocio', 9),
+('ocio', 10),
+('ocio', 12),
+('ocio', 13),
+('ocio', 15),
+('ocio', 16),
+('salud', 2),
+('salud', 3),
+('salud', 5),
+('salud', 8),
+('salud', 14);
