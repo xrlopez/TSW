@@ -9,6 +9,7 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
  $pregunta = $view->getVariable("pregunta");
  $errors = $view->getVariable("errors");
  $respuestas = $view->getVariable("respuestas");
+ $imagenes = $view->getVariable("imagenes");
  
  $view->setVariable("title", "Preguntas");
  
@@ -16,8 +17,8 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 <div class="preguntas">
 	<div class="question row">
 		<div class="usuario col-xs-12 col-sm-12 col-md-12">
-			<h1><img class="perfilP" src="images/perfil.png"><?=$pregunta->getUsuario()?></h1>
-
+			<h1><img class="perfilP" src="imagenes/user_<?=$imagenes[$pregunta->getUsuario()]?>"><?= $pregunta->getUsuario() ?></h1>
+			
 			<h2><?=$pregunta->getTitulo()?></h2>
 		</div>
 		<div class="textoR col-xs-12 col-sm-12 col-md-12">
@@ -72,10 +73,18 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 <?php foreach ($respuestas as $respuesta): ?>
 	<div class="comentarios row">
 		<div class="comentario col-xs-8 col-sm-8 col-md-8">
-			<h4><?=$respuesta->getUsuario()?></h4>
+			<h1><img class="perfilP" src="imagenes/user_<?=$imagenes[$respuesta->getUsuario()]?>"><?= $respuesta->getUsuario() ?></h1>
 			<h2><?=$respuesta->getDescripcion()?></h2>
 		</div>
 		<div class="numComentario col-xs-4 col-sm-4 col-md-4">
+			<?php if($currentuser == $respuesta->getUsuario()){ ?>
+				<form id="form-aceptar" action="index.php?controller=respuestas&amp;action=modificar" method="post" >
+					<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>
+					<input type="hidden" name="respuesta" value="<?=$respuesta->getId()?>"/>
+					<input type="hidden" name="usuario" value="<?=$currentuser?>"/>
+					<button type="submit" class="votar" name="modificar"><?= i18n("Modify")?></button>
+				</form>
+			<?php } ?>
 			<?php if($currentuser!=null){?>
 				<form id="form-aceptar" action="index.php?controller=respuestas&amp;action=votar" method="post" >
 					<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>

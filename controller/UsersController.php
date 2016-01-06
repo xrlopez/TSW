@@ -68,7 +68,17 @@ class UsersController extends BaseController {
       $user->setNombre($_POST["nombre"]);
 	  $user->setApellidos($_POST["apellidos"]);
       $user->setCorreo($_POST["correo"]);
+	  
+	  if(isset($_FILES['img'])){
+		$img = $_FILES['img']['name'];
+		$ext = strrchr($img, '.');
+		$ruta = 'imagenes/user_'.$user->getId().$ext;
 
+		if(move_uploaded_file($_FILES['img']['tmp_name'],$ruta)){
+			$user->setImagen($user->getId().$ext);
+		}
+	  }
+		  
       if ($_POST["pass"]==$_POST["repass"]) {
 		$pass = md5($_POST["pass"]);
         $user->setPassword($pass);
@@ -185,8 +195,17 @@ class UsersController extends BaseController {
     if($this->userMapper->isValidUser($_POST["usuario"],$pass)){
         if (isset($_POST["usuario"])) {  
           $user->setNombre($_POST["nombre"]);
-      $user->setApellidos($_POST["apellidos"]);
+		  $user->setApellidos($_POST["apellidos"]);
           $user->setCorreo($_POST["correo"]);
+		  if(isset($_FILES['img'])){
+			$img = $_FILES['img']['name'];
+			$ext = strrchr($img, '.');
+			$ruta = 'imagenes/user_'.$user->getId().$ext;
+
+			if(move_uploaded_file($_FILES['img']['tmp_name'],$ruta)){
+				$user->setImagen($user->getId().$ext);
+			}
+		  }
 
           if(!(strlen(trim($_POST["passNew"])) == 0)){
             if ($_POST["passNew"]==$_POST["passNueva"]) {

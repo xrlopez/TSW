@@ -46,9 +46,9 @@ class PreguntasController extends BaseController {
   public function index(){
 	$this->listados();
     $preguntas = $this->preguntaMapper->getPreguntas();
-	
     $numPreguntas = $this->preguntaMapper->getNumPreguntas();
-
+	$imagenes = $this->preguntaMapper->getImagenes();
+	
     $this->view->setVariable("num_pagina", 1);
     if (5 < $numPreguntas ) {
       $fin = 5;
@@ -59,6 +59,7 @@ class PreguntasController extends BaseController {
     $this->view->setVariable("fin", $fin);
     $this->view->setVariable("preguntas", $preguntas);  
     $this->view->setVariable("numPreguntas", $numPreguntas);
+	$this->view->setVariable("imagenes", $imagenes);
     $this->view->render("preguntas", "index");
 
   }
@@ -66,6 +67,7 @@ class PreguntasController extends BaseController {
   public function page()
     {
 	  $this->listados();
+	  $imagenes = $this->preguntaMapper->getImagenes();
       $numPage = $_GET['page'];
 
       $inicio = $numPage*5-4;
@@ -80,6 +82,7 @@ class PreguntasController extends BaseController {
       $this->view->setVariable("num_pagina", $numPage);
       $this->view->setVariable("numPreguntas", $numPreguntas);
       $this->view->setVariable("preguntas", $preguntas);
+	  $this->view->setVariable("imagenes", $imagenes);
       $this->view->render("preguntas", "index"); 
     }
 
@@ -89,8 +92,10 @@ class PreguntasController extends BaseController {
       $idpre = $_GET["id"];
       $pregunta = $this->preguntaMapper->findById($idpre);
       $respuestas = $this->respuestaMapper->findAllByPregunta($idpre);
+	  $imagenes = $this->preguntaMapper->getImagenes();
       $this->view->setVariable("respuestas",$respuestas);
       $this->view->setVariable("pregunta", $pregunta);
+	  $this->view->setVariable("imagenes", $imagenes);
       $this->view->render("preguntas", "pregunta");
     }
   }
@@ -150,6 +155,7 @@ class PreguntasController extends BaseController {
       $iduser = $_GET["id"];
       $preguntasUsuario = $this->preguntaMapper->preguntasUsuario($iduser);
 	  $numPreguntas = $this->preguntaMapper->getNumPreguntas();
+	  $imagenes = $this->preguntaMapper->getImagenes();
 	  
 	  $this->view->setVariable("num_pagina", 1);
 	  if (5 < $numPreguntas ) {
@@ -161,6 +167,7 @@ class PreguntasController extends BaseController {
       $this->view->setVariable("fin", $fin);
 	  $this->view->setVariable("preguntasUsuario", $preguntasUsuario);	  
       $this->view->setVariable("numPreguntas", $numPreguntas);
+	  $this->view->setVariable("imagenes", $imagenes);
       $this->view->render("preguntas", "usuariosMP");
     }
   }
@@ -206,5 +213,55 @@ class PreguntasController extends BaseController {
       $this->view->setVariable("categoria",$categoria);
       $this->view->render("preguntas", "pregCatergoria");
     }
+	
+	public function modificar(){
+		$this->listados();
+		if(isset($_POST["id"])){
+		  $idpre = $_POST["id"];
+		  $pregunta = $this->preguntaMapper->findById($idpre);
+		  $this->view->setVariable("pregunta", $pregunta);
+		  $this->view->render("preguntas", "modificar");
+		}
+	}
+	
+	public function update(){
+		$this->listados();
+		if(isset($_SESSION["currentuser"])){
+		  if(isset($_POST["submit"])){
+			if($_POST["submit"]==i18n("Modify")){
+				$pregunta = new Pregunta();
+				if((strlen($_POST["pregunta"])>1) && (strlen($_POST["descripcion"])>1)){
+					$pregunta->setId($_POST["preguntaId"]);
+					$pregunta->setTitulo($_POST["pregunta"]);
+					$pregunta->setDescripcion($_POST["descripcion"]);
+					$time = time();
+					$pregunta->setFecha(date("Y-m-d H:i:s", $time));
+					$pregunta->setUsuario($_SESSION["currentuser"]);
+					$preg = $this->preguntaMapper->update($pregunta);
+					if(isset($_POST["categorias"])) {
+						$this->preguntaMapper->modCategorias($preg->getId(),$_POST["categorias"]);
+					}
+					$this->view->redirect("preguntas", "index");
+				} else{
+					$errors["general"] = i18n("You can not ask with empty fields");
+					$this->view->setVariable("errors", $errors);
+					$this->view->render("preguntas", "preguntar");
+				}
+			} else if($_POST["submit"]==i18n("Delete")){
+				$this->preguntaMapper->delete($_POST["preguntaId"]);
+				$this->view->redirect("preguntas", "index");
+			}
+			else{
+				$this->view->redirect("preguntas", "index");
+			}
+			
+		  }else{
+			  $this->view->render("preguntas", "preguntar");
+		  }
+		}else{
+		  $this->view->setFlash(sprintf(i18n("To ask you have login")));
+		  $this->view->render("users", "login");    
+		}
+	}
   
 }

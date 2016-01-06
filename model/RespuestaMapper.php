@@ -102,5 +102,24 @@ class RespuestaMapper {
 
       }
   }
+  
+  public function update($respuesta){
+	$stmt = $this->db->prepare("DELETE FROM votos WHERE idRespuesta = ?");
+	$stmt->execute(array($respuesta->getId()));
+	$stmt = $this->db->prepare("UPDATE respuestas SET descripcion = ?, votosPositivos = ?, votosNegativos = ?, idUsuario = ?  WHERE idRespuesta = ? AND idPregunta = ?");
+	$stmt->execute(array($respuesta->getDescripcion(), 0, 0, $respuesta->getUsuario(), $respuesta->getId(), $respuesta->getPregunta()));
+	$stmt2 = $this->db->query("SELECT * FROM respuestas ORDER BY idPregunta DESC LIMIT 1");
+	$res = $stmt2->fetch(PDO::FETCH_ASSOC);
+	if($res != null) {
+		return new Pregunta($res["idRespuesta"], $res["idPregunta"], $res["descripcion"], $res["votosPositivos"], $res["votosNegativos"], $res["idUsuario"]);
+	}else{
+		return null;
+	}
+  }
+  
+  public function delete($respuesta, $pregunta){
+	$stmt = $this->db->prepare("DELETE FROM respuestas WHERE idRespuesta = ? AND idPregunta = ?");
+    $stmt->execute(array($respuesta, $pregunta));
+  }
    
 }

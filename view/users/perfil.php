@@ -15,8 +15,8 @@
  
 ?>
 
-<div class="registrar row">
-<div class="formLogin col-xs-12 col-sm-12 col-md-12">
+<div class="iniPreguntar row">
+<div class="formLogin col-xs-6 col-sm-6 col-md-6">
     <span class="titulo"><?= i18n("User")?></span>
 	    <div>
 		    <div class="row registrarse">
@@ -63,5 +63,8 @@
 		 	</form>
 		</div>
 	    
-    </div>
+    </div class="formLogin col-xs-6 col-sm-6 col-md-6">
+		<img class="imagen" src="imagenes/user_<?= $user->getImagen()?>" alt="imagenUser" width="300px">
+	<div>
+	</div>
 </div>

@@ -12,7 +12,8 @@ CREATE TABLE usuarios(
 	nombre VARCHAR(100) NOT NULL,
 	apellidos VARCHAR(100) NOT NULL,
 	correo VARCHAR(15) NOT NULL,
-	password CHAR(32) NOT NULL	
+	imagen VARCHAR(25) NOT NULL,
+	password CHAR(32) NOT NULL
 );
 
 CREATE TABLE preguntas(
@@ -51,14 +52,14 @@ CREATE TABLE categorias(
 	CONSTRAINT FK_pregunta_categoria FOREIGN KEY  (idPregunta) REFERENCES preguntas(idPregunta) ON DELETE CASCADE
 );
 
-INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `correo`, `password`) VALUES
-('alicia', 'Alicia', 'López', 'alicia@gmail.co', 'e94ef563867e9c9df3fcc999bdb045f5'),
-('carlitos', 'Carlos', 'Alcantara', 'carlos@correo.c', '86c06093b9c9351bcea13ba73dcf9502'),
-('javier', 'Javier', 'Pérez', 'javier@gmail.co', '3c9c03d6008a5adf42c2a55dd4a1a9f2'),
-('luisa', 'luisa', 'fernandez', 'luisa@gmail.com', '327229a1f11cc3c7ce66ee5d1341ae51'),
-('monica', 'Mónica', 'García', 'monica@gmail.co', 'ff0d813dd5d2f64dd372c6c4b6aed086'),
-('ruben', 'Ruben', 'González', 'ruben@gmail.com', '32252792b9dccf239f5a5bd8e778dbc2'),
-('victor', 'Victor', 'Rodriguez', 'victor@gmail.co', 'ffc150a160d37e92012c196b6af4160d');
+INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `correo`, `imagen`, `password`) VALUES
+('alicia', 'Alicia', 'López', 'alicia@gmail.co', 'alicia.jpg', 'e94ef563867e9c9df3fcc999bdb045f5'),
+('carlitos', 'Carlos', 'Alcantara', 'carlos@correo.c', 'carlitos.jpg', '86c06093b9c9351bcea13ba73dcf9502'),
+('javier', 'Javier', 'Pérez', 'javier@gmail.co', 'javier.jpg', '3c9c03d6008a5adf42c2a55dd4a1a9f2'),
+('luisa', 'luisa', 'fernandez', 'luisa@gmail.com', 'luisa.jpg', '327229a1f11cc3c7ce66ee5d1341ae51'),
+('monica', 'Mónica', 'García', 'monica@gmail.co', 'monica.jpg', 'ff0d813dd5d2f64dd372c6c4b6aed086'),
+('ruben', 'Ruben', 'González', 'ruben@gmail.com', 'ruben.jpg', '32252792b9dccf239f5a5bd8e778dbc2'),
+('victor', 'Victor', 'Rodriguez', 'victor@gmail.co', 'victor.jpg', 'ffc150a160d37e92012c196b6af4160d');
 
 INSERT INTO `preguntas` (`idPregunta`, `titulo`, `descripcion`, `fecha`, `idUsuario`) VALUES
 (1, '¿Como puedo aprender a programar?', 'Necesito aprender a programar en Java', '2015-12-03 13:00:00', 'alicia'),

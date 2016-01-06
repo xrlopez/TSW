@@ -56,6 +56,7 @@
     "Leisure" => "Ocio",
     "Health" => "Salude",
     "Beauty" => "Beleza",
-    "Animals" => "Animais"
+    "Animals" => "Animais",
+	"Image" => "Imaxen"
   )
 ?>

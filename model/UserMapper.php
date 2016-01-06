@@ -33,8 +33,8 @@ class UserMapper {
    * @return void
    */      
   public function save($user) {
-    $stmt = $this->db->prepare("INSERT INTO usuarios values (?,?,?,?,?)");
-    $stmt->execute(array($user->getId(), $user->getNombre(), $user->getApellidos(), $user->getCorreo(), $user->getPassword()));
+    $stmt = $this->db->prepare("INSERT INTO usuarios values (?,?,?,?,?,?)");
+    $stmt->execute(array($user->getId(), $user->getNombre(), $user->getApellidos(), $user->getCorreo(), $user->getImagen(), $user->getPassword()));
   }
   
   /**
@@ -79,6 +79,7 @@ class UserMapper {
     $user["nombre"],
     $user["apellidos"],
     $user["correo"],
+	$user["imagen"],
     $user["password"]
   );}
   }
@@ -97,8 +98,8 @@ class UserMapper {
   }
 
   public function update(User $user) {
-    $stmt = $this->db->prepare("UPDATE usuarios set nombre=?, apellidos=?, correo=?, password=? where idUsuario=?");
-    $stmt->execute(array($user->getNombre(), $user->getApellidos(), $user->getCorreo(), $user->getPassword(), $user->getId()));    
+    $stmt = $this->db->prepare("UPDATE usuarios set nombre=?, apellidos=?, correo=?, imagen=?, password=? where idUsuario=?");
+    $stmt->execute(array($user->getNombre(), $user->getApellidos(), $user->getCorreo(), $user->getImagen(), $user->getPassword(), $user->getId()));    
   }
 
   public function delete(User $user) {

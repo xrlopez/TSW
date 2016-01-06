@@ -5,12 +5,15 @@
  require_once(__DIR__."/../../model/RespuestaMapper.php");
  $view = ViewManager::getInstance();
  
+ $currentuser = $view->getVariable("currentusername");
  $numPreguntas = $view->getVariable("numPreguntas");
  $numPagina = $view->getVariable("num_pagina");
  $preguntas = $view->getVariable("preguntas");
  $pregFin = $view->getVariable("fin");
  $pregInicio = $view->getVariable("inicio");
  $paginas = ceil($numPreguntas/5);
+ 
+  $imagenes = $view->getVariable("imagenes");
  
  $view->setVariable("title", "Preguntas");
  
@@ -19,7 +22,7 @@
 	<div class="preguntas">
 		<div class="pregunta row">
 			<div class="usuario col-xs-6 col-sm-6 col-md-8">
-					<h1><img class="perfilP" src="images/perfil.png"><?= $pregunta->getUsuario() ?></h1>
+					<h1><img class="perfilP" src="imagenes/user_<?=$imagenes[$pregunta->getUsuario()]?>"><?= $pregunta->getUsuario() ?></h1>
 			</div>
 			<div class="respuestas col-xs-6 col-sm-6 col-md-4">
 					<h2><?= $pregunta->getnumRespuestas()?></h2>
@@ -54,9 +57,18 @@
 									<?= i18n("Animals")?></a><?php
 								break;
 					}
-				 endforeach; ?>
+				 endforeach; 
+				 ?>
 			</div>
 			<?php } ?>
+			<div class="texto col-xs-12 col-sm-12 col-md-12">
+				<?php if($pregunta->getUsuario() == $currentuser){?>
+					 <form class="form-mod" action="index.php?controller=preguntas&amp;action=modificar" method="post">
+						<input type="hidden" name="id" value="<?= $pregunta->getId()?>">
+						<button type="submit" id="buttonBusqueda"><?= i18n("Modify")?></button>
+					 </form>
+				<?php }?>
+			</div>
 		</div>
 	</div>
 <?php endforeach; ?>

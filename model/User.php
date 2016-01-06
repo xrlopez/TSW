@@ -19,6 +19,7 @@ class User {
   private $name;
   private $surname;
   private $email;
+  private $image;
   private $passwd;
   
   /**
@@ -27,11 +28,12 @@ class User {
    * @param string $username The name of the user
    * @param string $passwd The password of the user
    */
-  public function __construct($username=NULL, $name=NULL, $surname=NULL, $email=NULL, $passwd=NULL) {
+  public function __construct($username=NULL, $name=NULL, $surname=NULL, $email=NULL, $image=NULL, $passwd=NULL) {
      $this->username = $username;
     $this->name = $name;
     $this->surname = $surname;
     $this->email = $email;
+	$this->image = $image;
     $this->passwd = $passwd;    
   }
  
@@ -63,9 +65,18 @@ class User {
     return $this->email;
   }
  
+  public function setImagen($image) {
+    $this->image = $image;
+  } 
+  
+  public function getImagen() {
+    return $this->image;
+  }
+ 
   public function setCorreo($email) {
     $this->email = $email;
   } 
+  
   public function getPassword() {
     return $this->passwd;
   }  

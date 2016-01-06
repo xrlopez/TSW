@@ -42,9 +42,14 @@ class PreguntaMapper {
     $preg_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
     $pregs = array();
+	//$imags = array();
     
     foreach ($preg_db as $preg) {
       array_push($pregs, new Pregunta($preg["idPregunta"], $preg["titulo"], $preg["descripcion"], $preg["fecha"], $preg["idUsuario"]));
+	 // $stmt = $this->db->prepare("SELECT imagen FROM usuarios WHERE idUsuario =?"); 
+	  //$stmt->execute(array($preg["idUsuario"]));
+	  //$imag_db = $stmt->fetch(PDO::FETCH_ASSOC);
+	   //array_push($imags, $imag_db['imagen']);
     }   
   
     return $pregs;
@@ -140,6 +145,45 @@ class PreguntaMapper {
       $stmt = $this->db->prepare("INSERT INTO categorias VALUES(?,?)");
       $stmt->execute(array($categoria, $pregunta));
     }
+  }
+  
+  public function update($pregunta){
+	$stmt = $this->db->prepare("UPDATE preguntas SET titulo = ?, descripcion = ?, fecha = ?, idUsuario = ?  WHERE idPregunta = ?");
+	$stmt->execute(array($pregunta->getTitulo(), $pregunta->getDescripcion(), $pregunta->getFecha(), $pregunta->getUsuario(), $pregunta->getId()));
+	$stmt2 = $this->db->query("SELECT * FROM preguntas ORDER BY idPregunta DESC LIMIT 1");
+	$pre = $stmt2->fetch(PDO::FETCH_ASSOC);
+	if($pre != null) {
+		return new Pregunta($pre["idPregunta"], $pre["titulo"], $pre["descripcion"], $pre["fecha"], $pre["idUsuario"]);
+	}else{
+		return null;
+	}
+  }
+  
+  public function modCategorias($pregunta,$categorias){
+	$stmt = $this->db->prepare("DELETE FROM categorias WHERE idPregunta = ?");
+    $stmt->execute(array($pregunta));
+	
+    foreach ($categorias as $categoria) {
+      $stmt2 = $this->db->prepare("INSERT INTO categorias VALUES(?,?)");
+      $stmt2->execute(array($categoria, $pregunta));
+    }
+  }
+  
+  public function delete($pregunta){
+	$stmt = $this->db->prepare("DELETE FROM preguntas WHERE idPregunta = ?");
+    $stmt->execute(array($pregunta));
+  }
+  
+  public function getImagenes(){
+	$imags = array();
+		
+	$stmt = $this->db->query("SELECT idUsuario, imagen FROM usuarios"); 
+	
+	$imag_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	foreach($imag_db as $imag){
+		$imags[$imag['idUsuario']] = $imag['imagen'];
+	}
+	return $imags;
   }
     
 }
