@@ -58,7 +58,6 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 	<div class="comentar" >
 		<form action="index.php?controller=respuestas&amp;action=responder" method="post" >
 			<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>
-			<input type="hidden" name="usuario" value="<?=$currentuser?>"/>
 			<?= isset($errors["comentario"])?$errors["comentario"]:"" ?>
 			<textarea name="coment" rows="7" cols="40" placeholder="<?= i18n("Type your answer")?>" required></textarea>
 			<button type="submit" id="buttonComent"><?= i18n("Answer")?></button>
@@ -81,7 +80,6 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 				<form id="form-aceptar" action="index.php?controller=respuestas&amp;action=modificar" method="post" >
 					<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>
 					<input type="hidden" name="respuesta" value="<?=$respuesta->getId()?>"/>
-					<input type="hidden" name="usuario" value="<?=$currentuser?>"/>
 					<button type="submit" class="votar" name="modificar"><?= i18n("Modify")?></button>
 				</form>
 			<?php } ?>
@@ -89,7 +87,6 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 				<form id="form-aceptar" action="index.php?controller=respuestas&amp;action=votar" method="post" >
 					<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>
 					<input type="hidden" name="respuesta" value="<?=$respuesta->getId()?>"/>
-					<input type="hidden" name="usuario" value="<?=$currentuser?>"/>
 					<button type="submit" class="votar" name="positivo"><?=$respuesta->getPositivos()?> <img src="images/like.png"/></button>
 					<button type="submit" class="votar" name="negativo"><?=$respuesta->getNegativos()?><img src="images/nolike.png"/></button>
 				</form>

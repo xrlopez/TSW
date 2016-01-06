@@ -59,7 +59,6 @@ require_once(__DIR__."/../../model/RespuestaMapper.php");
 		<form action="index.php?controller=respuestas&amp;action=update" method="post" >
 			<input type="hidden" name="pregunta" value="<?=$pregunta->getId()?>"/>
 			<input type="hidden" name="respuesta" value="<?=$respuesta->getId()?>"/>
-			<input type="hidden" name="usuario" value="<?=$currentuser?>"/>
 			<?= isset($errors["comentario"])?$errors["comentario"]:"" ?>
 			<textarea name="descripcion" rows="7" cols="40" required><?= $respuesta->getDescripcion()?></textarea>
 			<div class="botones_preguntar col-xs-12 col-sm-12 col-md-12">
