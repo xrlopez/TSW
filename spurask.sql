@@ -11,7 +11,7 @@ CREATE TABLE usuarios(
 	idUsuario VARCHAR(15) PRIMARY KEY NOT NULL,
 	nombre VARCHAR(100) NOT NULL,
 	apellidos VARCHAR(100) NOT NULL,
-	correo VARCHAR(15) NOT NULL,
+	correo VARCHAR(25) NOT NULL,
 	imagen VARCHAR(25) NOT NULL,
 	password CHAR(32) NOT NULL
 );
@@ -19,7 +19,7 @@ CREATE TABLE usuarios(
 CREATE TABLE preguntas(
 	idPregunta INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	titulo VARCHAR(100) NOT NULL,
-	descripcion CHAR(200) NOT NULL,
+	descripcion VARCHAR(500) NOT NULL,
 	fecha DATETIME NOT NULL,
 	idUsuario VARCHAR(15) NOT NULL,
 	CONSTRAINT FK_usuarios_preguntas FOREIGN KEY  (idUsuario) REFERENCES usuarios(idUsuario) ON DELETE CASCADE	
@@ -28,7 +28,7 @@ CREATE TABLE preguntas(
 CREATE TABLE respuestas(
 	idRespuesta INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	idPregunta INT NOT NULL,
-	descripcion VARCHAR(300) NOT NULL,
+	descripcion VARCHAR(500) NOT NULL,
 	votosPositivos INT NOT NULL,
 	votosNegativos INT NOT NULL,
 	idUsuario VARCHAR(15) NOT NULL,
@@ -53,13 +53,13 @@ CREATE TABLE categorias(
 );
 
 INSERT INTO `usuarios` (`idUsuario`, `nombre`, `apellidos`, `correo`, `imagen`, `password`) VALUES
-('alicia', 'Alicia', 'López', 'alicia@gmail.co', 'alicia.jpg', 'e94ef563867e9c9df3fcc999bdb045f5'),
-('carlitos', 'Carlos', 'Alcantara', 'carlos@correo.c', 'carlitos.jpg', '86c06093b9c9351bcea13ba73dcf9502'),
-('javier', 'Javier', 'Pérez', 'javier@gmail.co', 'javier.jpg', '3c9c03d6008a5adf42c2a55dd4a1a9f2'),
+('alicia', 'Alicia', 'López', 'alicia@gmail.com', 'alicia.jpg', 'e94ef563867e9c9df3fcc999bdb045f5'),
+('carlitos', 'Carlos', 'Alcantara', 'carlos@correo.com', 'carlitos.jpg', '86c06093b9c9351bcea13ba73dcf9502'),
+('javier', 'Javier', 'Pérez', 'javier@gmail.com', 'javier.jpg', '3c9c03d6008a5adf42c2a55dd4a1a9f2'),
 ('luisa', 'luisa', 'fernandez', 'luisa@gmail.com', 'luisa.jpg', '327229a1f11cc3c7ce66ee5d1341ae51'),
-('monica', 'Mónica', 'García', 'monica@gmail.co', 'monica.jpg', 'ff0d813dd5d2f64dd372c6c4b6aed086'),
+('monica', 'Mónica', 'García', 'monica@gmail.com', 'monica.jpg', 'ff0d813dd5d2f64dd372c6c4b6aed086'),
 ('ruben', 'Ruben', 'González', 'ruben@gmail.com', 'ruben.jpg', '32252792b9dccf239f5a5bd8e778dbc2'),
-('victor', 'Victor', 'Rodriguez', 'victor@gmail.co', 'victor.jpg', 'ffc150a160d37e92012c196b6af4160d');
+('victor', 'Victor', 'Rodriguez', 'victor@gmail.com', 'victor.jpg', 'ffc150a160d37e92012c196b6af4160d');
 
 INSERT INTO `preguntas` (`idPregunta`, `titulo`, `descripcion`, `fecha`, `idUsuario`) VALUES
 (1, '¿Como puedo aprender a programar?', 'Necesito aprender a programar en Java', '2015-12-03 13:00:00', 'alicia'),
