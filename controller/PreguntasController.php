@@ -177,7 +177,8 @@ class PreguntasController extends BaseController {
     $categoria = $_GET["categoria"];
     $preguntas = $this->preguntaMapper->preguntasByCategoria($categoria);
     $numPreguntas = $this->preguntaMapper->getNumPreguntasCat($categoria);
-
+	$imagenes = $this->preguntaMapper->getImagenes();
+	
     $this->view->setVariable("num_pagina", 1);
     if (5 < $numPreguntas ) {
       $fin = 5;
@@ -189,6 +190,7 @@ class PreguntasController extends BaseController {
     $this->view->setVariable("preguntas", $preguntas);  
     $this->view->setVariable("numPreguntas", $numPreguntas);
     $this->view->setVariable("categoria",$categoria);
+	 $this->view->setVariable("imagenes",$imagenes);
     $this->view->render("preguntas", "pregCatergoria");
   }
 
